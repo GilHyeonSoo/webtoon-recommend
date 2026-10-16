@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>웹툰 크롤러 콘솔</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <h1>웹툰 크롤러</h1>
+        <p class="lede">크롤 → 통합 → Git push · Railway/Vercel 배포</p>
+      </header>
+
+      <section class="status-card" id="status-card">
+        <div class="status-row">
+          <span id="crawler-pill" class="pill pill-off">크롤러 확인 중…</span>
+          <button type="button" class="ghost" id="refresh-btn">새로고침</button>
+        </div>
+        <dl class="counts" id="counts"></dl>
+        <ul class="meta" id="data-info"></ul>
+        <p class="catalog-line" id="catalog-line"></p>
+      </section>
+
+      <section class="actions">
+        <h2>1. 크롤링</h2>
+        <div class="buttons" id="platform-buttons"></div>
+        <p class="hint" id="job-hint"></p>
+      </section>
+
+      <section class="actions integrate">
+        <h2>2. 통합</h2>
+        <p class="integrate-copy">SQLite → 플랫폼 JSON → <code>webtoons.json</code> → Backend <code>sync:catalog</code></p>
+        <button type="button" class="secondary" id="integrate-btn">통합 실행</button>
+      </section>
+
+      <section class="actions integrate">
+        <h2>3. 배포</h2>
+        <p class="integrate-copy" id="deploy-copy">Git push · Railway (설정: <code>deploy</code>)</p>
+        <button type="button" class="deploy" id="deploy-btn">배포 실행</button>
+      </section>
+
+      <section class="log">
+        <h2>진행</h2>
+        <pre id="log" aria-live="polite"></pre>
+      </section>
+    </main>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

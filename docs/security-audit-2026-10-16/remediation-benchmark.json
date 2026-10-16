@@ -1,0 +1,17 @@
+{
+  "catalogCount": 6010,
+  "node": "v24.10.0",
+  "startupMs": 1576.68,
+  "reference": "original source snapshot",
+  "exactParityCases": 3,
+  "baselineMs": [
+    1531.73,
+    1071.09,
+    1442.83
+  ],
+  "recommendationSamples": 18,
+  "recommendationP95Ms": 176.2,
+  "healthP95Ms": 5.56,
+  "quotaTesting": "separate HTTP security tests",
+  "productionRequests": 0
+}

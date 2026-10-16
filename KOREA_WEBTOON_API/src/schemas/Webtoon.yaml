@@ -1,0 +1,72 @@
+components:
+  schemas:
+    Webtoon:
+      type: object
+      properties:
+        id:
+          type: string
+          example: naver_641253
+        title:
+          type: string
+        provider:
+          type: string
+          enum: [NAVER, KAKAO, KAKAO_PAGE]
+        updateDays:
+          type: array
+          items:
+            type: string
+            enum: [MON, TUE, WED, THU, FRI, SAT, SUN]
+        url:
+          type: string
+        thumbnail:
+          type: array
+          items:
+            type: string
+        isEnd:
+          type: boolean
+        isFree:
+          type: boolean
+        isUpdated:
+          type: boolean
+        ageGrade:
+          type: integer
+        freeWaitHour:
+          type: integer
+          nullable: true
+        authors:
+          type: array
+          items:
+            type: string
+        synopsis:
+          type: string
+          nullable: true
+          description: 작품 줄거리 또는 한 줄 소개
+        genres:
+          type: array
+          items:
+            type: string
+          description: 장르 (플랫폼별 정규화)
+        tags:
+          type: array
+          items:
+            type: string
+          description: 큐레이션·SEO 태그
+        averageRating:
+          type: number
+          nullable: true
+          description: 평균 평점 (0~10, 없으면 null)
+        primaryGenre:
+          type: string
+          description: 대표 장르 (없으면 unknown)
+        totalEpisodeCount:
+          type: integer
+          nullable: true
+          description: 총 회차 수 (없으면 null)
+        isOnHiatus:
+          type: boolean
+          nullable: true
+          description: 휴재 여부 (없으면 null)
+        popularityCount:
+          type: integer
+          nullable: true
+          description: 인기 지표 (네이버 favoriteCount 등, 없으면 null)

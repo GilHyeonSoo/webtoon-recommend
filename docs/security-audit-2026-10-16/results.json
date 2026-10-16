@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-16",
+  "scope": "source handlers; mocked crawler I/O; no production requests",
+  "results": [
+    {
+      "name": "BFF synchronous recommendation cost",
+      "evidence": {
+        "catalogCount": 6010,
+        "durationsMs": [
+          1501.7,
+          1443.2,
+          1425.1
+        ],
+        "zeroDelayTimerMs": [
+          1501.8,
+          1443.2,
+          1425.2
+        ]
+      }
+    },
+    {
+      "name": "BFF unrelated Vercel origin accepted",
+      "evidence": {
+        "origin": "https://security-audit-unrelated.vercel.app",
+        "allowOrigin": "https://security-audit-unrelated.vercel.app"
+      }
+    },
+    {
+      "name": "Conditional seed route fails open",
+      "evidence": {
+        "productionRepositoryStatus": 404,
+        "injectedSeedRepositoryStatus": 200,
+        "malformedRowPassedToSeed": true
+      }
+    },
+    {
+      "name": "Conditional catalog URL poisoning accepted",
+      "evidence": {
+        "realCatalogModified": false,
+        "attackerHostAccepted": true
+      }
+    },
+    {
+      "name": "Crawler unauthenticated forced overlapping jobs",
+      "evidence": {
+        "withoutForceSkipped": true,
+        "forceRequests": 2,
+        "concurrentTransactions": 2,
+        "responseCodes": [
+          200,
+          200
+        ]
+      }
+    },
+    {
+      "name": "Crawler transaction start rejection escapes background task",
+      "evidence": {
+        "responseStatus": 200,
+        "unhandledRejection": "audit transaction failure",
+        "verifierInterceptedRejection": true
+      }
+    },
+    {
+      "name": "Crawler unauthenticated GET runs enrichment and persistence",
+      "evidence": {
+        "requests": 2,
+        "enrichCalls": 2,
+        "persistCalls": 2,
+        "realDatabaseWrites": 0
+      }
+    },
+    {
+      "name": "Crawler Kakao polling timers retained after successful job",
+      "evidence": {
+        "syntheticWorks": 14,
+        "createdIntervals": 3,
+        "activeIntervalsAfterCompletion": 3,
+        "realIntervalsCreated": 0
+      }
+    },
+    {
+      "name": "Crawler pagination input accepted",
+      "evidence": {
+        "perPage": "-1",
+        "ormTake": -1,
+        "status": 200
+      }
+    },
+    {
+      "name": "Crawler pagination input accepted",
+      "evidence": {
+        "perPage": "0",
+        "ormTake": 0,
+        "status": 200
+      }
+    },
+    {
+      "name": "Crawler pagination input accepted",
+      "evidence": {
+        "perPage": "100",
+        "ormTake": 100,
+        "status": 200
+      }
+    },
+    {
+      "name": "Crawler invalid list request triggers health/update chain",
+      "evidence": {
+        "status": 400,
+        "healthCallsBeforeValidation": 1
+      }
+    },
+    {
+      "name": "Crawler batch negative limit and no delay accepted",
+      "evidence": {
+        "limit": -1,
+        "delayMs": 0
+      }
+    }
+  ]
+}

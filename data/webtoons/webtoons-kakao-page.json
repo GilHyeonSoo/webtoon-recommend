@@ -1,0 +1,276 @@
+{
+  "exportedAt": "2026-10-10T10:34:50.597Z",
+  "provider": "KAKAO_PAGE",
+  "count": 10,
+  "webtoons": [
+    {
+      "id": "kakopage_20031838",
+      "title": "일단 뜨겁게 청소하라?!",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/20031838",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=bci74b/hyfOHp3zpv/4LNKGjH1i9kZxYTty0KLq1&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": 72,
+      "authors": [
+        "앵고"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_63820853",
+      "title": " 연상 남친의 익애가 너무 달콤해",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/63820853",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=bdqyfC/hAd47pS6V6/Cs4FL2P3yFUzIqomk3O0C1&filename=o1"
+      ],
+      "isEnd": false,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "디사이"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_48585726",
+      "title": "& 앤드",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/48585726",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=bP8zVx/hydtIYQzB7/PIbDmWoas5rcGNSD8mvIn0&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 15,
+      "freeWaitHour": null,
+      "authors": [
+        "오카자키 마리"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_21293570",
+      "title": "'2차원개그' 애니코믹",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/21293570",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=NJASuWmDefJqf_gO&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "마인드C"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_60037547",
+      "title": "'남'편과 결혼해버렸다",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [
+        "FRI"
+      ],
+      "url": "https://page.kakao.com/content/60037547",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=IwqkU/hzCtd8kQAO/qKLYcjX9ASaSIKKlKX9su0&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "혜혁 / BILIBILI COMICS",
+        "불닭킹 / BILIBILI COMICS",
+        "총공대인"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_46956264",
+      "title": "'너'란 남자 길들이기 대작전!",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/46956264",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=NJAUKLC0EplPyjXE&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "Kanako Uesugi"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_47027026",
+      "title": "'카톡대화 백일장' 빵터지는 당선작 모음",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [
+        "MON"
+      ],
+      "url": "https://page.kakao.com/content/47027026",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=NJAUKxYtHpWQtknp&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "카카오페이지"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_47080388",
+      "title": "'클로저스' 지금은, 임무수행중",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [
+        "TUE"
+      ],
+      "url": "https://page.kakao.com/content/47080388",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=iDnv7/hya4rMb8FH/9XwV1ZCYtoemOrkXcwlOQK&filename=JPEG&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "환상거북",
+        " 이원진"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_46951165",
+      "title": "'키스블루' 케이코 감성인기 시리즈",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/46951165",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=NJATgSq6EsqJTDAQ&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 15,
+      "freeWaitHour": 72,
+      "authors": [
+        "Keiko Kinoshita"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    },
+    {
+      "id": "kakopage_51671510",
+      "title": "+α의 사정(개정판)[인디고]",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/51671510",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=cJUJ79/hymrg0FZ2L/EjaeSXbXtCOM6aYwPLPct0&filename=o1"
+      ],
+      "isEnd": false,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 15,
+      "freeWaitHour": null,
+      "authors": [
+        "오토미 치사"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": [],
+      "averageRating": null,
+      "primaryGenre": "unknown",
+      "totalEpisodeCount": null,
+      "isOnHiatus": null,
+      "popularityCount": null
+    }
+  ]
+}

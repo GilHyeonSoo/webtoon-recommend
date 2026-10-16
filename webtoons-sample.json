@@ -1,0 +1,172 @@
+{
+  "exportedAt": "2026-10-08T05:42:15.627Z",
+  "samplePerProvider": 2,
+  "count": 6,
+  "webtoons": [
+    {
+      "id": "naver_641253",
+      "title": "외모지상주의",
+      "provider": "NAVER",
+      "updateDays": [
+        "FRI"
+      ],
+      "url": "https://comic.naver.com/webtoon/list?titleId=641253",
+      "thumbnail": [
+        "https://image-comic.pstatic.net/webtoon/641253/thumbnail/thumbnail_IMAG21_01672165-03c8-44b1-ba0e-ef82c9cfcd10.jpg"
+      ],
+      "isEnd": false,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "박태준"
+      ],
+      "synopsis": "못생기고 뚱뚱하다고 괴롭힘을 당하며  루저 인생만 살아온 내가 잘생겨졌다는 이유로 인싸가 됐다.\n\n어느 날 자고 일어났더니 갑자기 완벽한 외모와 몸을 지닌 사람이 되어 깨어난다면?",
+      "genres": [
+        "drama"
+      ],
+      "tags": [
+        "사이다",
+        "학원액션",
+        "소년물",
+        "참교육",
+        "성장물",
+        "격투기",
+        "학원물",
+        "인플루언서",
+        "복수극",
+        "먼치킨"
+      ]
+    },
+    {
+      "id": "naver_783549",
+      "title": "100",
+      "provider": "NAVER",
+      "updateDays": [],
+      "url": "https://comic.naver.com/webtoon/list?titleId=783549",
+      "thumbnail": [
+        "https://image-comic.pstatic.net/webtoon/783549/thumbnail/thumbnail_IMAG21_3847261774335533621.jpg"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": 24,
+      "authors": [
+        "형은",
+        "최윤열"
+      ],
+      "synopsis": "[PUBG UNIVERSE] 국가정보원 천호영은 사라진 의원을 찾기 위해 불법 살인게임 배틀그라운드에 참가한다. 100명의 사형수들 사이에서 벌어지는 서바이벌 액션.",
+      "genres": [
+        "action"
+      ],
+      "tags": [
+        "서바이벌",
+        "완결액션"
+      ]
+    },
+    {
+      "id": "kakao_3090",
+      "title": " 무공으로 레벨업하는 마왕님",
+      "provider": "KAKAO",
+      "updateDays": [
+        "SAT"
+      ],
+      "url": "https://webtoon.kakao.com/content/%EB%AC%B4%EA%B3%B5%EC%9C%BC%EB%A1%9C-%EB%A0%88%EB%B2%A8%EC%97%85%ED%95%98%EB%8A%94-%EB%A7%88%EC%99%95%EB%8B%98/3090",
+      "thumbnail": [
+        "https://kr-a.kakaopagecdn.com/P/C/3090/c1/2x/126964b7-2ee1-48ba-874f-8a4713bef913.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3090/c2/2x/9a3c77a5-9df0-4535-ac9b-bfe12fa35328.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3090/bg/2x/73bbba03-584d-46d4-857f-47eaa6da524b.jpg"
+      ],
+      "isEnd": false,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": 3,
+      "authors": [
+        "탸님",
+        "AM"
+      ],
+      "synopsis": "전직 마왕,\nS급 헌터로 각성하다!",
+      "genres": [],
+      "tags": [
+        "#통쾌한",
+        "#몰입되는",
+        "#학원/판타지",
+        "#레벨업물"
+      ]
+    },
+    {
+      "id": "kakao_3727",
+      "title": " [드라마 외전] 힘쎈여자 황금주",
+      "provider": "KAKAO",
+      "updateDays": [],
+      "url": "https://webtoon.kakao.com/content/%EB%93%9C%EB%9D%BC%EB%A7%88-%EC%99%B8%EC%A0%84-%ED%9E%98%EC%8E%88%EC%97%AC%EC%9E%90-%ED%99%A9%EA%B8%88%EC%A3%BC/3727",
+      "thumbnail": [
+        "https://kr-a.kakaopagecdn.com/P/C/3727/c1/2x/9fdd2593-4ffd-4e5f-a8a8-91cc16e7204c.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3727/c2/2x/9a974935-2fb1-4863-a8bd-f733f64a8d7c.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3727/bg/2x/01db6f39-c4d0-4026-9e0f-dee45922c2d9.jpg"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": 24,
+      "authors": [
+        "이원식",
+        "참치캔"
+      ],
+      "synopsis": "남순의 엄마 황금주의\n통쾌한 활약상!",
+      "genres": [],
+      "tags": [
+        "#통쾌한",
+        "#역동적인",
+        "#판타지 드라마",
+        "#성공성장물"
+      ]
+    },
+    {
+      "id": "kakopage_20031838",
+      "title": "일단 뜨겁게 청소하라?!",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/20031838",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=bci74b/hyfOHp3zpv/4LNKGjH1i9kZxYTty0KLq1&filename=o1"
+      ],
+      "isEnd": true,
+      "isFree": true,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": 72,
+      "authors": [
+        "앵고"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": []
+    },
+    {
+      "id": "kakopage_63820853",
+      "title": " 연상 남친의 익애가 너무 달콤해",
+      "provider": "KAKAO_PAGE",
+      "updateDays": [],
+      "url": "https://page.kakao.com/content/63820853",
+      "thumbnail": [
+        "https://page-images.kakaoentcdn.com/download/resource?kid=bdqyfC/hAd47pS6V6/Cs4FL2P3yFUzIqomk3O0C1&filename=o1"
+      ],
+      "isEnd": false,
+      "isFree": false,
+      "isUpdated": false,
+      "ageGrade": 0,
+      "freeWaitHour": null,
+      "authors": [
+        "디사이"
+      ],
+      "synopsis": null,
+      "genres": [],
+      "tags": []
+    }
+  ]
+}

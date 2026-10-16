@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-16",
+  "source": "npm audit, full dependency tree",
+  "projects": {
+    "Backend": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 81,
+        "dev": 44,
+        "optional": 27,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 124
+      }
+    },
+    "Frontend": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 4,
+        "dev": 72,
+        "optional": 47,
+        "peer": 4,
+        "peerOptional": 0,
+        "total": 76
+      }
+    },
+    "Crawler": {
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "dependencies": {
+        "prod": 258,
+        "dev": 129,
+        "optional": 11,
+        "peer": 0,
+        "peerOptional": 0,
+        "total": 397
+      }
+    }
+  }
+}

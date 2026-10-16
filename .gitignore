@@ -1,0 +1,13 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.DS_Store
+Frontend/node_modules/
+Frontend/dist/
+Backend/node_modules/
+Backend/dist/
+KOREA_WEBTOON_API/node_modules/
+.supabase/
+tools/crawler-console/config.json

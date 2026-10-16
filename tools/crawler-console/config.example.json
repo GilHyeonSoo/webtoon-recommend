@@ -1,0 +1,47 @@
+{
+  "crawlerBaseUrl": "http://127.0.0.1:3000",
+  "adminSecret": "여기에-32자-이상-무작위-비밀문자열-입력",
+  "consolePort": 3780,
+  "jobTimeoutMinutes": 25,
+  "integrateTimeoutMinutes": 180,
+  "projectRoot": "",
+  "crawlerRunDir": "",
+  "sqlitePath": "",
+  "export": {
+    "countPerPlatform": 50000,
+    "providers": ["NAVER", "KAKAO"]
+  },
+  "mergeFiles": ["webtoons-naver.json", "webtoons-kakao.json"],
+  "deploy": {
+    "enabled": true,
+    "timeoutMinutes": 45,
+    "git": {
+      "enabled": true,
+      "remote": "origin",
+      "branch": "main",
+      "commitMessageTemplate": "chore(catalog): update webtoons ({{total}} titles, {{date}})",
+      "paths": [
+        "data/webtoons/",
+        "Frontend/src/data/webtoons.json",
+        "Backend/data/webtoons.json"
+      ]
+    },
+    "railway": {
+      "enabled": true,
+      "serviceDir": "Backend",
+      "useTempCopyOnWindows": true,
+      "cli": "railway"
+    },
+    "vercel": {
+      "enabled": false,
+      "serviceDir": "Frontend",
+      "cli": "npx",
+      "prod": true
+    }
+  },
+  "platforms": [
+    { "key": "naver", "label": "네이버", "enabled": true },
+    { "key": "kakao", "label": "카카오", "enabled": true },
+    { "key": "kakao-page", "label": "카카오페이지", "enabled": false, "comingSoon": true }
+  ]
+}
