@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { analyzeWebtoons } from './api/webtoons'
 import type { Analysis, Webtoon } from './api/webtoons'
 import { Cover } from './components/Cover'
@@ -49,7 +50,9 @@ export function App() {
     } finally { if (abort.current === controller) abort.current = null }
   }
   function edit() { setStage('select'); setAnalysis(null); setError('') }
-  return <main className={`app-shell ${stage}`}>
+  return <>
+    <Analytics />
+    <main className={`app-shell ${stage}`}>
     <header className="site-header"><a href="#" className="brand" onClick={(event) => { event.preventDefault(); if (stage !== 'analyzing') edit() }}><img className="brand-mark" src={brandIcon} alt="" width={36} height={36} />웹툰추천</a></header>
     {stage === 'select' && <section className="selection-content" aria-labelledby="selection-title"><header className="selection-heading"><h1 className="question-title" id="selection-title" ref={heading} tabIndex={-1}>평소에 즐겨보는 웹툰을 선택해주세요.</h1><p className="subtitle">좋아하는 이야기에서, 다음으로 좋아할 이야기를 찾아드릴게요.</p></header>
       <div className="selection-row" aria-label="선택한 웹툰" data-count={selected.length}>
@@ -63,4 +66,5 @@ export function App() {
     {stage === 'results' && analysis && <Recommendations analysis={analysis} onEdit={edit} />}
     {searchOpen && <SearchDialog selected={selected} onSelect={choose} onClose={closeSearch} />}
   </main>
+  </>
 }
