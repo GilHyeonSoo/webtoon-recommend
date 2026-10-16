@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-10T10:49:51.656Z",
+  "exportedAt": "2026-10-16T14:21:48.214Z",
   "provider": "KAKAO",
   "count": 3211,
   "webtoons": [
@@ -1141,9 +1141,9 @@
       ],
       "url": "https://webtoon.kakao.com/content/2%EB%A0%88%EB%B2%A8%EB%A1%9C-%ED%9A%8C%EA%B7%80%ED%95%9C-%EB%AC%B4%EC%8B%A0/3634",
       "thumbnail": [
-        "https://kr-a.kakaopagecdn.com/P/C/3634/c1/2x/96792a23-06dc-4889-8170-0527c6417a73.png",
-        "https://kr-a.kakaopagecdn.com/P/C/3634/c2/2x/4c3a0f94-2074-4013-a74f-6c6e1060a7b5.png",
-        "https://kr-a.kakaopagecdn.com/P/C/3634/bg/2x/2825e4a7-b783-408e-b556-1051a04822b4.jpg"
+        "https://kr-a.kakaopagecdn.com/P/C/3634/c1/2x/09f42621-9bda-416c-b196-1c28f71aba1c.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3634/c2/2x/f0e32b67-15ad-4685-8a3e-7a659e7f245c.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3634/bg/2x/493202a2-fc60-4f3b-892c-7bbeacc8a4e7.jpg"
       ],
       "isEnd": false,
       "isFree": true,
@@ -2291,7 +2291,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": null,
+      "freeWaitHour": 24,
       "authors": [
         "그모",
         "그모"
@@ -2906,7 +2906,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -4260,7 +4260,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -5806,16 +5806,14 @@
       "id": "kakao_4416",
       "title": "걱정 마세요, 합의된 사기 결혼입니다",
       "provider": "KAKAO",
-      "updateDays": [
-        "WED"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EA%B1%B1%EC%A0%95-%EB%A7%88%EC%84%B8%EC%9A%94-%ED%95%A9%EC%9D%98%EB%90%9C-%EC%82%AC%EA%B8%B0-%EA%B2%B0%ED%98%BC%EC%9E%85%EB%8B%88%EB%8B%A4/4416",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/4416/c1/2x/568189bb-c8a1-4686-9add-90992e69104b.png",
         "https://kr-a.kakaopagecdn.com/P/C/4416/c2/2x/c46819aa-d51a-4c7c-8a18-50fffe8fd371.png",
         "https://kr-a.kakaopagecdn.com/P/C/4416/bg/2x/95809899-711b-4249-9fc4-e068406ca8e4.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -6313,9 +6311,9 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
-      "freeWaitHour": 3,
+      "freeWaitHour": 24,
       "authors": [
         "윤동백",
         "주태"
@@ -7204,15 +7202,15 @@
       ],
       "url": "https://webtoon.kakao.com/content/%EA%B2%B0%ED%98%BC%EB%8F%84-%EC%95%88-%ED%96%88%EB%8A%94%EB%8D%B0-%EB%AC%B4%EC%8A%A8-%EC%9D%B4%ED%98%BC%EC%9D%B8%EA%B0%80%EC%9A%94-%ED%8F%90%ED%95%98/4165",
       "thumbnail": [
-        "https://kr-a.kakaopagecdn.com/P/C/4165/c1/2x/93c611a4-286c-4877-a484-01d8087ca9f1.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4165/c2/2x/05c52e6d-f0dc-4ef0-b3d7-7715625cdefd.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4165/bg/2x/55b46046-6795-4846-b646-4fffc0676bb4.jpg"
+        "https://kr-a.kakaopagecdn.com/P/C/4165/c1/2x/3c377735-1d1f-4471-abbc-a930f8e98fee.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4165/c2/2x/e17e852c-a0d6-41bd-b5a3-5b35aacd22bd.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4165/bg/2x/df02f23e-aa44-48d8-901d-c5f9a0ff5d53.jpg"
       ],
       "isEnd": false,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 24,
+      "freeWaitHour": 3,
       "authors": [
         "윤삼",
         "Hara(C-Route)"
@@ -9291,7 +9289,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -9638,7 +9636,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -10907,7 +10905,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 3,
       "authors": [
@@ -11635,7 +11633,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": null,
+      "freeWaitHour": 24,
       "authors": [
         "이현석",
         "이현석"
@@ -14687,7 +14685,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -15838,7 +15836,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -16018,7 +16016,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -16776,7 +16774,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 3,
+      "freeWaitHour": 24,
       "authors": [
         "탄지",
         "송이"
@@ -17187,7 +17185,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -19809,7 +19807,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -21926,7 +21924,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -22687,7 +22685,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -22888,17 +22886,14 @@
       "id": "kakao_4882",
       "title": "내일도 흔들릴 나에게",
       "provider": "KAKAO",
-      "updateDays": [
-        "MON",
-        "WED"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EB%82%B4%EC%9D%BC%EB%8F%84-%ED%9D%94%EB%93%A4%EB%A6%B4-%EB%82%98%EC%97%90%EA%B2%8C/4882",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/4882/c1/2x/f092db61-23b9-4b76-9997-fcd4cc0a04ee.png",
         "https://kr-a.kakaopagecdn.com/P/C/4882/c2/2x/364e8c12-1044-4d2a-8cf3-e0fcf1904335.png",
         "https://kr-a.kakaopagecdn.com/P/C/4882/bg/2x/e7554d41-3cc4-41a8-b684-62abdb857260.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -24020,7 +24015,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -24810,7 +24805,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": null,
+      "freeWaitHour": 24,
       "authors": [
         "부엉이처방전",
         "부엉이처방전"
@@ -29291,7 +29286,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -31571,7 +31566,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -32087,7 +32082,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -32293,7 +32288,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -33490,7 +33485,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -36316,7 +36311,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -37023,7 +37018,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -38027,7 +38022,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -42013,7 +42008,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": null,
       "authors": [
@@ -42105,18 +42100,16 @@
       "id": "kakao_4353",
       "title": "미친 남주들과 같은 반이 되었다",
       "provider": "KAKAO",
-      "updateDays": [
-        "SAT"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EB%AF%B8%EC%B9%9C-%EB%82%A8%EC%A3%BC%EB%93%A4%EA%B3%BC-%EA%B0%99%EC%9D%80-%EB%B0%98%EC%9D%B4-%EB%90%98%EC%97%88%EB%8B%A4/4353",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/4353/c1/2x/953de925-8eaa-4968-a45a-fa92529dfa8f.png",
         "https://kr-a.kakaopagecdn.com/P/C/4353/c2/2x/a5c47cfa-14cb-4e08-b79d-b6e870c9c07d.png",
         "https://kr-a.kakaopagecdn.com/P/C/4353/bg/2x/839bf06c-7f3e-484d-9d83-5945a27404e9.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -44532,7 +44525,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -44952,7 +44945,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -45291,7 +45284,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 72,
       "authors": [
@@ -46330,7 +46323,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -49669,7 +49662,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -52023,7 +52016,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -53517,7 +53510,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -53690,7 +53683,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 3,
+      "freeWaitHour": 24,
       "authors": [
         "생얌",
         "포야"
@@ -53794,7 +53787,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -53969,7 +53962,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -56804,7 +56797,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -56937,7 +56930,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": null,
       "authors": [
@@ -59954,7 +59947,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -62527,15 +62520,15 @@
       ],
       "url": "https://webtoon.kakao.com/content/%EC%95%85%EB%85%80-%EB%B6%80%ED%99%9C-24%EC%8B%9C/4098",
       "thumbnail": [
-        "https://kr-a.kakaopagecdn.com/P/C/4098/c1/2x/99298de0-ad40-4624-94aa-d0c29924d61b.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4098/c2/2x/480309a1-c02f-4312-8edb-674361f1369d.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4098/bg/2x/51fafdae-b4a9-45ec-a287-3310979a1202.jpg"
+        "https://kr-a.kakaopagecdn.com/P/C/4098/c1/2x/7022e47c-773e-4896-a766-9197c7834486.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4098/c2/2x/43e02646-a986-458f-8b19-a3f58ec79422.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4098/bg/2x/7ed77a3f-293b-4058-9503-f645238b0b15.jpg"
       ],
       "isEnd": false,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 24,
+      "freeWaitHour": 3,
       "authors": [
         "김강구",
         "랏시"
@@ -62974,16 +62967,14 @@
       "id": "kakao_3941",
       "title": "악녀는 대공을 사로잡았다",
       "provider": "KAKAO",
-      "updateDays": [
-        "SAT"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EC%95%85%EB%85%80%EB%8A%94-%EB%8C%80%EA%B3%B5%EC%9D%84-%EC%82%AC%EB%A1%9C%EC%9E%A1%EC%95%98%EB%8B%A4/3941",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/3941/c1/2x/b10a6c35-ed76-443c-adb3-900e3e439760.png",
         "https://kr-a.kakaopagecdn.com/P/C/3941/c2/2x/b6610a64-3ced-4d30-820c-4a97121cbe59.png",
         "https://kr-a.kakaopagecdn.com/P/C/3941/bg/2x/8e9f5617-67ee-42d9-a020-526d2cfcbb20.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -64020,18 +64011,18 @@
       ],
       "url": "https://webtoon.kakao.com/content/%EC%95%85%EB%8B%B9-%EA%B0%80%EB%AC%B8%EC%9D%98-%EC%83%81%EC%86%8D%EB%85%80%EC%9E%85%EB%8B%88%EB%8B%A4/3936",
       "thumbnail": [
-        "https://kr-a.kakaopagecdn.com/P/C/3936/c1/2x/d49e8590-04cd-47f4-8e82-4fc2fe16933a.png",
-        "https://kr-a.kakaopagecdn.com/P/C/3936/c2/2x/9c2259cc-870a-4d3a-9a71-d975d9fe313a.png",
-        "https://kr-a.kakaopagecdn.com/P/C/3936/bg/2x/653dd603-3831-4563-81c4-4bf2cc8d63c9.jpg"
+        "https://kr-a.kakaopagecdn.com/P/C/3936/c1/2x/41e9f236-7cf9-4813-aa15-32de1f269d4d.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3936/c2/2x/15644889-83bb-4386-80b3-118a14b70da7.png",
+        "https://kr-a.kakaopagecdn.com/P/C/3936/bg/2x/278960bf-5c8f-4f2f-811d-ce6c52e729ce.jpg"
       ],
       "isEnd": false,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 24,
+      "freeWaitHour": 3,
       "authors": [
-        "코타비",
-        "강재건"
+        "다우",
+        "쌀국수"
       ],
       "synopsis": "내 나이 10세,\n아무래도 백만장자가 되어버린 것 같다",
       "genres": [],
@@ -64312,7 +64303,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -64599,7 +64590,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -66264,7 +66255,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -67263,7 +67254,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -67334,7 +67325,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": null,
       "authors": [
@@ -67534,15 +67525,15 @@
       ],
       "url": "https://webtoon.kakao.com/content/%EC%95%BD%ED%83%88%ED%98%BC%EC%9C%BC%EB%A1%9C-%EB%82%A8%ED%8E%B8%EB%B6%80%ED%84%B0-%EB%B0%94%EA%BE%B8%EA%B2%A0%EC%8A%B5%EB%8B%88%EB%8B%A4/4750",
       "thumbnail": [
-        "https://kr-a.kakaopagecdn.com/P/C/4750/c1/2x/61344d11-e5b4-42ac-ba49-502089049995.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4750/c2/2x/7696036f-c856-433a-bacf-e3db81120f61.png",
-        "https://kr-a.kakaopagecdn.com/P/C/4750/bg/2x/ceb8650a-62e0-41b9-bcd3-8e8265f85108.jpg"
+        "https://kr-a.kakaopagecdn.com/P/C/4750/c1/2x/0d686b96-d26c-4bde-918b-76554bee3d81.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4750/c2/2x/e0b0c25b-755b-4ad2-b49e-60adfdbe21ab.png",
+        "https://kr-a.kakaopagecdn.com/P/C/4750/bg/2x/aa2a5586-e1b8-4ac7-9b7d-27ca885c1358.jpg"
       ],
       "isEnd": false,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 24,
+      "freeWaitHour": 3,
       "authors": [
         "RDY",
         "해독"
@@ -69180,7 +69171,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -69358,7 +69349,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -71007,7 +70998,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -71623,7 +71614,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -73984,7 +73975,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -75265,16 +75256,14 @@
       "id": "kakao_4364",
       "title": "왕자님은 양파 따위에 울지 않는다",
       "provider": "KAKAO",
-      "updateDays": [
-        "TUE"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EC%99%95%EC%9E%90%EB%8B%98%EC%9D%80-%EC%96%91%ED%8C%8C-%EB%94%B0%EC%9C%84%EC%97%90-%EC%9A%B8%EC%A7%80-%EC%95%8A%EB%8A%94%EB%8B%A4/4364",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/4364/c1/2x/14750922-96bb-4ffb-ace5-d31209280857.png",
         "https://kr-a.kakaopagecdn.com/P/C/4364/c2/2x/d00bf28e-0db1-4d00-bbd6-c46dc2d21903.png",
         "https://kr-a.kakaopagecdn.com/P/C/4364/bg/2x/4bb27acf-726c-429b-8abf-376f833c2619.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -76534,7 +76523,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": null,
+      "freeWaitHour": 24,
       "authors": [
         "긍씨",
         "긍씨"
@@ -80150,7 +80139,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -80186,7 +80175,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -82212,7 +82201,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -82732,7 +82721,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -83148,7 +83137,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -83662,7 +83651,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -83698,7 +83687,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": 24,
       "authors": [
@@ -84658,7 +84647,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -87497,7 +87486,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -87669,7 +87658,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -88296,7 +88285,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -88321,16 +88310,14 @@
       "id": "kakao_3813",
       "title": "존버닥터: 닥터 섬보이",
       "provider": "KAKAO",
-      "updateDays": [
-        "THU"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EC%A1%B4%EB%B2%84%EB%8B%A5%ED%84%B0-%EB%8B%A5%ED%84%B0-%EC%84%AC%EB%B3%B4%EC%9D%B4/3813",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/3813/c1/2x/ba51c66a-cd51-4920-a1f1-1d586dfeff6e.png",
         "https://kr-a.kakaopagecdn.com/P/C/3813/c2/2x/7c96d2d8-d23a-4042-8af6-c4ed77ffe59e.png",
         "https://kr-a.kakaopagecdn.com/P/C/3813/bg/2x/24e78c05-07ea-4c40-a7d7-59a68f80f046.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -88543,7 +88530,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -90102,7 +90089,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 19,
       "freeWaitHour": null,
       "authors": [
@@ -90429,16 +90416,14 @@
       "id": "kakao_1369",
       "title": "지옥사원",
       "provider": "KAKAO",
-      "updateDays": [
-        "TUE"
-      ],
+      "updateDays": [],
       "url": "https://webtoon.kakao.com/content/%EC%A7%80%EC%98%A5%EC%82%AC%EC%9B%90/1369",
       "thumbnail": [
         "https://kr-a.kakaopagecdn.com/P/C/1369/c1/2x/e378e969-31e0-4048-883f-83010f337518.png",
         "https://kr-a.kakaopagecdn.com/P/C/1369/c2/2x/6822e370-1e82-4948-af0f-5615c2694468.png",
         "https://kr-a.kakaopagecdn.com/P/C/1369/bg/2x/78bd40ca-738e-4d7a-95f4-5d8e8ad64c31.jpg"
       ],
-      "isEnd": false,
+      "isEnd": true,
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
@@ -93088,7 +93073,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -93756,7 +93741,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -94724,7 +94709,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -95309,7 +95294,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -96093,7 +96078,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -96290,7 +96275,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -96809,7 +96794,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -97047,7 +97032,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": null,
       "authors": [
@@ -97782,7 +97767,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 3,
+      "freeWaitHour": 24,
       "authors": [
         "비송",
         "반디"
@@ -99623,7 +99608,7 @@
       "isFree": true,
       "isUpdated": false,
       "ageGrade": 0,
-      "freeWaitHour": 3,
+      "freeWaitHour": 24,
       "authors": [
         "연",
         "금맛",
@@ -99659,7 +99644,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -99695,7 +99680,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": true,
+      "isUpdated": false,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -105643,7 +105628,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -106612,7 +106597,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -109664,7 +109649,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 3,
       "authors": [
@@ -109874,7 +109859,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
@@ -110361,7 +110346,7 @@
       ],
       "isEnd": false,
       "isFree": true,
-      "isUpdated": false,
+      "isUpdated": true,
       "ageGrade": 0,
       "freeWaitHour": 24,
       "authors": [
