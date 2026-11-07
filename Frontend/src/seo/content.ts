@@ -1,6 +1,7 @@
 export const site = {
   origin: 'https://webtoonrecommend.site',
   name: '웹툰추천',
+  naverVerification: 'bc6da28d45c185422a7813dba4354e966fc16366',
   title: '웹툰추천 | 좋아하는 작품으로 찾는 맞춤 추천',
   description: '즐겨보는 웹툰을 최대 3개 선택하고, 장르·태그·줄거리 유사도로 취향에 맞는 작품을 찾아보세요. 네이버·카카오와 연재 상태별로 골라볼 수 있어요.',
 } as const

@@ -50,6 +50,7 @@ async function writePage({ path, title, description, component, props, home = fa
   const schemas = [{ '@context': 'https://schema.org', '@type': 'WebPage', name: title, description, url: canonical, inLanguage: 'ko' }, ...structured]
   const html = `<!doctype html>
 <html lang="ko"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="theme-color" content="#ffffff" />
+${home ? `<meta name="naver-site-verification" content="${site.naverVerification}" />` : ''}
 <title>${escape(title)}</title><meta name="description" content="${escape(description)}" /><meta name="robots" content="${robots}" /><link rel="canonical" href="${escape(canonical)}" />
 <meta property="og:type" content="website" /><meta property="og:locale" content="ko_KR" /><meta property="og:site_name" content="${site.name}" /><meta property="og:title" content="${escape(title)}" /><meta property="og:description" content="${escape(description)}" /><meta property="og:url" content="${escape(canonical)}" /><meta property="og:image" content="${site.origin}/social.png" /><meta property="og:image:width" content="1254" /><meta property="og:image:height" content="1254" /><meta property="og:image:alt" content="웹툰추천 아이콘" />
 <meta name="twitter:card" content="summary" /><meta name="twitter:title" content="${escape(title)}" /><meta name="twitter:description" content="${escape(description)}" /><meta name="twitter:image" content="${site.origin}/social.png" />
