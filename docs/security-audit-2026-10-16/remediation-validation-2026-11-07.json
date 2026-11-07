@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-07",
+  "node": "v24.10.0",
+  "productionDeployment": false,
+  "tests": {
+    "Backend": {
+      "passed": 22,
+      "failed": 0,
+      "command": "node --import tsx --test --test-concurrency=1 tests/*.test.ts"
+    },
+    "Frontend": {
+      "passed": 12,
+      "failed": 0,
+      "command": "npm test"
+    },
+    "Crawler": {
+      "passed": 6,
+      "failed": 0,
+      "command": "npm test"
+    }
+  },
+  "checks": {
+    "backendBuild": "passed",
+    "crawlerTypecheck": "passed",
+    "frontendFullBuild": "passed in isolated snapshot including static SEO build and checks",
+    "targetedDiffCheck": "passed"
+  },
+  "sourceHashes": {
+    "Backend/src/app.ts": "d957effd3ee0e8f1c74959d78b77dbddd513fa236146d3a58c05acd3fe596019",
+    "Backend/src/lib/recommendationPool.ts": "24e70317ad503fd7ad7fb158c7226ba4144de90bf221313138fd60d1b3b69ec7",
+    "Backend/src/lib/recommendationWorker.ts": "8c0887a6d2dc06bead4101910421e02a5e72bcef87d51396fe60a6ae58fa6402",
+    "Backend/src/lib/similarity.ts": "976c5b24539a44b612876ca3c2c7e49f60ecafd42e8fa8770e5c59f1c0f7df1f",
+    "Frontend/src/api/webtoons.ts": "693173c3123e48f85b53bf44b5ca208b4604540ea5e3f07181bc11ef128b5ef0",
+    "KOREA_WEBTOON_API/src/security/jobs.ts": "f4fc75b324dc2bbe285b6624b0a350122a8f32a7ee57cec19369740385716f4a",
+    "KOREA_WEBTOON_API/src/modules/enrich/enrichWebtoonMeta.ts": "98758b757228382640740721152a67bd3d8529810433d1de5f33fa0dcef42890",
+    "Backend/package-lock.json": "dcb8a123838a294f87ab2a17eb155063e9280703e0be40e97b7cb3b91a7650cf",
+    "Frontend/package-lock.json": "89a747c6937b928988d36d918fc5c42ad345aa4d56a4466bd7737c31b2034214",
+    "KOREA_WEBTOON_API/package-lock.json": "b04d68f812aece945c6d57c3fe6dfd4386f5213b22799b29265aa018c8d07aff"
+  },
+  "frontendBuildSnapshotSourceHashes": {
+    "src/App.tsx": "bc2346dce6b9b5bcde2776cb9eaca338923d9c978c7af0d272d4ee1befab2b93",
+    "src/main.tsx": "db5205e40b71bf85a7d9fd7f6a23088b4a6e8ca2ee79b78efb93ab2e24c20be7",
+    "src/styles.css": "f900b9c70963a8e9970512e1a2ef596a9e54639f4c63ea3d62acfae478cd9988",
+    "src/quiz/questions.ts": "8cd460e462c5d005aa5ce6f1a435d1e87bbe7e5ab8df1c64cdd79cd24c0af4d2",
+    "src/quiz/recommendations.ts": "04d3d6f4b536333e1a97db48d01dfba5e941036f74de4f44d307e9161dd34cb3",
+    "src/quiz/preferenceQuestions.ts": "5118bbcc3fc31bb18eb4242080d6c8bb1a9bf0ded49d7d36df483972458f3701",
+    "src/components/GlassChoices.tsx": "51bbbddccb7f27118ab47bd43c57012ed6575618893202510c333b584b3964b6",
+    "src/components/SimilarityRing.tsx": "50069acef00e9d4c7f2646c6ad954da6c691198fa973b4af09789bb6de2f57c4",
+    "src/components/SearchDialog.tsx": "dc3bb5e6e36ccf1e68bec2e1cd82b975942e8c89ef967c522e22cd8b57067520",
+    "src/components/Cover.tsx": "0de62eeb13c63fbb099c8b58ec69a2f71817248796084cc248ae50232cb309ef",
+    "src/components/GlassSurface.tsx": "25a56ca430313dfd658f009e70bc43350adaee47f9559cd4759ea438cc30d306",
+    "src/components/GlassScene.tsx": "079131a04ac5448e64860d2f0610485970959b2ea349cd821eb9c29a3b3d2163",
+    "src/components/Recommendations.tsx": "fd4e20f9e05b5757c2fbd57b78fd98251b75384962badc198cd511bfe1563603",
+    "src/lib/preferenceMatch.ts": "87609f49b3f3cb214e0f8608141e8b56665eb83f447ef664facd92a04e0ec418",
+    "src/lib/recommendationHistory.ts": "9bc3fa47359d6245709fbcc22e93ceff14e19b25b6103aed94553c4ec2a86e54",
+    "src/lib/catalogValidation.ts": "31365c400e24b00999fa82a8dfb764962d60d33cc4c0b8a3da314836fcb84262",
+    "src/api/webtoons.ts": "693173c3123e48f85b53bf44b5ca208b4604540ea5e3f07181bc11ef128b5ef0",
+    "src/graphics/glassShader.ts": "d2d2aa05c99733766fd304bd804f766f8bd167d61a3a29c5303eb58b9178cebd",
+    "src/seo/PublicHome.tsx": "df2dd8ca50bdf7de15abb00529e931a61b83459275561cefbde7d289f7dc55b4",
+    "src/seo/content.ts": "08dd83c3e33c3ef265caa0fab2caefc7324bdc830d8df162628f92037d2bc2bc",
+    "src/seo/pages.tsx": "03f18615e66318d84c29366b23d0377bbc177d93c4b45cf9e8b621c0d0071dbb",
+    "src/seo/render.tsx": "c20879c4067f7f80f5f64f45b9ab4fba954c3bd142375d4179e32948bb723a1e",
+    "src/data/webtoons.json": "5a6b5bee1c924ad0496c71477948563bcbcc1b3dd7c3f80d295940bb3223e638",
+    "src/assets/icon.png": "2b1fac75e12cdf51d7d590cda51d12030c3d241ad7948960bf274051cf537b73"
+  }
+}

@@ -5,7 +5,7 @@ $ConfigPath = Join-Path $PSScriptRoot "config.json"
 if (-not (Test-Path $ConfigPath)) {
   throw "config.json이 없습니다. config.example.json을 복사한 뒤 adminSecret을 설정하세요."
 }
-$Config = Get-Content $ConfigPath -Raw | ConvertFrom-Json
+$Config = Get-Content $ConfigPath -Raw -Encoding utf8 | ConvertFrom-Json
 $Secret = $Config.adminSecret
 if (-not $Secret -or $Secret.Length -lt 32) { throw "adminSecret은 32자 이상이어야 합니다." }
 

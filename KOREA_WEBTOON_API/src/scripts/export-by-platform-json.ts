@@ -15,10 +15,21 @@ import {
   type Provider,
 } from '@/database/entity';
 import { In } from 'typeorm';
-import { enrichWebtoonMeta } from '@/modules/enrich/enrichWebtoonMeta';
+import { enrichExportBatch } from '@/modules/enrich/enrichExportBatch';
 import { buildKakaoCardMetaIndex } from '@/modules/kakao/functions/findKakaoCardMeta';
 
 const COUNT_PER_PLATFORM = Number(process.env.COUNT_PER_PLATFORM ?? 10);
+
+const parseEnrichRetryConfig = () => {
+  const enabled = process.env.ENRICH_RETRY_ENABLED !== '0';
+  const delayMs = Number(process.env.ENRICH_RETRY_DELAY_MS ?? 3_000);
+  const gapMs = Number(process.env.ENRICH_RETRY_GAP_MS ?? 2_000);
+  return {
+    retryEnabled: enabled,
+    retryDelayMs: Number.isFinite(delayMs) && delayMs >= 0 ? delayMs : 3_000,
+    retryGapMs: Number.isFinite(gapMs) && gapMs >= 0 ? gapMs : 2_000,
+  };
+};
 
 const OUTPUT_DIR =
   process.env.EXPORT_OUTPUT_DIR ??
@@ -103,25 +114,6 @@ async function pickRows(
   return result.slice(0, take);
 }
 
-async function enrichRows(
-  rows: NaverWebtoon[] | KakaoWebtoon[] | KakaoPageWebtoon[],
-  provider: Exclude<Provider, 'RIDI'>,
-  kakaoMetaIndex?: Awaited<ReturnType<typeof buildKakaoCardMetaIndex>>,
-) {
-  const webtoons = [];
-
-  for (const row of rows) {
-    const enriched = await enrichWebtoonMeta(row, {
-      kakaoMetaIndex:
-        provider === 'KAKAO' ? kakaoMetaIndex : undefined,
-    });
-    assertCatalogItem(enriched);
-    webtoons.push(enriched);
-    console.info(`  ✓ ${provider} ${enriched.title}`);
-  }
-
-  return webtoons;
-}
 
 runExclusive(async () => {
   if (!Number.isSafeInteger(COUNT_PER_PLATFORM) || COUNT_PER_PLATFORM < 1 || COUNT_PER_PLATFORM > 50000) throw new Error('Invalid export count');
@@ -179,13 +171,21 @@ runExclusive(async () => {
       })()
     : undefined;
 
+  const enrichRetry = parseEnrichRetryConfig();
+  if (enrichRetry.retryEnabled) {
+    console.info(
+      `↻ enrich 401/404 재시도: delay ${enrichRetry.retryDelayMs}ms, gap ${enrichRetry.retryGapMs}ms`,
+    );
+  }
+
   for (const { provider, rows } of exports) {
     console.info(`\n🔹 ${provider} (${rows.length})`);
-    const webtoons = await enrichRows(
-      rows,
-      provider,
-      provider === 'KAKAO' ? kakaoMetaIndex : undefined,
-    );
+    const webtoons = await enrichExportBatch(rows, provider, {
+      kakaoMetaIndex:
+        provider === 'KAKAO' ? kakaoMetaIndex : undefined,
+      ...enrichRetry,
+    });
+    for (const item of webtoons) assertCatalogItem(item);
 
     const filePath = path.join(OUTPUT_DIR, FILE_BY_PROVIDER[provider]);
     const payload = {

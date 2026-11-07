@@ -36,7 +36,21 @@ export function buildIntegrateConfig(raw) {
   if (!Number.isFinite(timeoutMs) || timeoutMs < 60_000) {
     throw new Error('integrateTimeoutMinutes가 올바르지 않습니다.');
   }
-  return { count, providers, mergeFiles, timeoutMs };
+  const enrichRetry = exportConfig.enrichRetry ?? {};
+  const retryEnabled = enrichRetry.enabled !== false;
+  const retryDelayMs = Number(enrichRetry.delayMs ?? 3_000);
+  const retryGapMs = Number(enrichRetry.gapMs ?? 2_000);
+  return {
+    count,
+    providers,
+    mergeFiles,
+    timeoutMs,
+    enrichRetry: {
+      enabled: retryEnabled,
+      delayMs: Number.isFinite(retryDelayMs) && retryDelayMs >= 0 ? retryDelayMs : 3_000,
+      gapMs: Number.isFinite(retryGapMs) && retryGapMs >= 0 ? retryGapMs : 2_000,
+    },
+  };
 }
 
 export async function readCatalogSummary(projectRoot) {
@@ -90,6 +104,9 @@ export async function runIntegratePipeline(config, jobs, jobId) {
     COUNT_PER_PLATFORM: String(integrate.count),
     EXPORT_PROVIDERS: integrate.providers.join(','),
     CRAWLER_JOB_TIMEOUT_MS: String(integrate.timeoutMs),
+    ENRICH_RETRY_ENABLED: integrate.enrichRetry.enabled ? '1' : '0',
+    ENRICH_RETRY_DELAY_MS: String(integrate.enrichRetry.delayMs),
+    ENRICH_RETRY_GAP_MS: String(integrate.enrichRetry.gapMs),
   };
 
   appendLog(job, `1/3 플랫폼 JSON export (${integrate.providers.join(', ')})…`);

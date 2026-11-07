@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Webtoon art-style work result v1",
+  "type": "object",
+  "required": ["schema_version", "key", "work_id", "provider", "status", "fingerprint", "feature_signature", "sources", "images", "samples", "errors", "pooled"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "key": {"type": "string", "minLength": 1},
+    "work_id": {"type": "string", "minLength": 1},
+    "provider": {"type": ["string", "null"]},
+    "status": {"enum": ["complete", "partial", "failed"]},
+    "fingerprint": {"$ref": "#/$defs/hash"},
+    "feature_signature": {"$ref": "#/$defs/hash"},
+    "feature_digest": {"$ref": "#/$defs/hash"},
+    "vocabulary": {"type": "string"},
+    "sources": {"type": "array", "items": {"type": "object", "required": ["path"], "properties": {"path": {"type": "string"}, "sha256": {"$ref": "#/$defs/hash"}, "bytes": {"type": "integer", "minimum": 0}, "error": {"type": "string"}}}},
+    "images": {"type": "array", "items": {"type": "object"}},
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "source", "kind", "method", "bbox", "confidence", "crop", "crop_sha256", "dino", "tags"],
+        "properties": {
+          "id": {"type": "string"},
+          "source": {"type": "string"},
+          "kind": {"enum": ["original", "face", "upper_body"]},
+          "method": {"enum": ["full_image", "yolov8_face", "estimated_from_face", "estimated_from_person"]},
+          "bbox": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "integer", "minimum": 0}},
+          "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "crop": {"type": "string"},
+          "crop_sha256": {"$ref": "#/$defs/hash"},
+          "dino": {"$ref": "#/$defs/dino"},
+          "tags": {"type": "object", "required": ["general", "character", "rating"], "properties": {"general": {"$ref": "#/$defs/tagList"}, "character": {"$ref": "#/$defs/tagList"}, "rating": {"$ref": "#/$defs/tagList"}}}
+        }
+      }
+    },
+    "errors": {"type": "array", "items": {"type": "object", "required": ["source", "error"]}},
+    "pooled": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "object", "required": ["dino", "wd14_general", "groups"], "properties": {
+          "dino": {"$ref": "#/$defs/dino"},
+          "wd14_general": {"type": "array", "minItems": 1, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+          "groups": {"type": "object"}
+        }}
+      ]
+    }
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "dino": {"type": "array", "minItems": 384, "maxItems": 384, "items": {"type": "number"}},
+    "tagList": {"type": "array", "items": {"type": "object", "required": ["name", "score"], "properties": {"name": {"type": "string"}, "score": {"type": "number", "minimum": 0, "maximum": 1}}}}
+  }
+}

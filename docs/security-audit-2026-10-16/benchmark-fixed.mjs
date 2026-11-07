@@ -23,7 +23,7 @@ const timings = [], health = [], baseline = [];
 const p95 = (values) => +[...values].sort((a, b) => a - b)[Math.ceil(values.length * 0.95) - 1].toFixed(2);
 async function post(body) {
   const started = performance.now();
-  const response = await fetch(base + '/api/recommendations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  const response = await fetch(base + '/api/recommendations', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Connection': 'close' }, body: JSON.stringify(body) });
   assert.equal(response.status, 200);
   const data = await response.json(); timings.push(performance.now() - started); return data;
 }
@@ -45,16 +45,16 @@ try {
     const work = Array.from({ length: 5 }, () => post(cases[0]));
     for (let i = 0; i < 5; i++) {
       const began = performance.now();
-      assert.equal((await fetch(base + '/health')).status, 200);
+      assert.equal((await fetch(base + '/health', { headers: { Connection: 'close' } })).status, 200);
       health.push(performance.now() - began);
     }
     await Promise.all(work);
   }
-  const output = { catalogCount: items.length, node: process.version, startupMs: +startupMs.toFixed(2),
+  const output = { date: process.env.AUDIT_DATE ?? '2026-10-16', catalogCount: items.length, node: process.version, startupMs: +startupMs.toFixed(2),
     reference: process.argv[2] ? 'original source snapshot' : 'uncached reference',
     exactParityCases: cases.length, baselineMs: baseline.map((v) => +v.toFixed(2)),
     recommendationSamples: timings.length, recommendationP95Ms: p95(timings), healthP95Ms: p95(health),
     quotaTesting: 'separate HTTP security tests', productionRequests: 0 };
   console.log(JSON.stringify(output, null, 2));
-  await writeFile(new URL('remediation-benchmark.json', import.meta.url), JSON.stringify(output, null, 2) + '\n');
+  await writeFile(new URL(process.env.BENCHMARK_OUTPUT ?? 'remediation-benchmark.json', import.meta.url), JSON.stringify(output, null, 2) + '\n');
 } finally { await app.locals.close(); await new Promise((resolve) => server.close(resolve)); }

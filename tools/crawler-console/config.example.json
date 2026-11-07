@@ -9,7 +9,12 @@
   "sqlitePath": "",
   "export": {
     "countPerPlatform": 50000,
-    "providers": ["NAVER", "KAKAO"]
+    "providers": ["NAVER", "KAKAO"],
+    "enrichRetry": {
+      "enabled": true,
+      "delayMs": 3000,
+      "gapMs": 2000
+    }
   },
   "mergeFiles": ["webtoons-naver.json", "webtoons-kakao.json"],
   "deploy": {

@@ -33,10 +33,14 @@ export type EnrichWebtoonOptions = {
   kakaoMetaIndex?: Map<number, KakaoCardExtendedMeta>;
 };
 
-export const enrichWebtoonMeta = async (
+export const enrichRetryableHttpStatuses = new Set([401, 404]);
+export type EnrichWebtoonResult = { webtoon: WebtoonWithExtendedMeta; ok: boolean; httpStatus?: number };
+
+// Export batches need the failure status; existing callers still receive a webtoon below.
+export const enrichWebtoonMetaResult = async (
   webtoon: NormalizedWebtoon,
   options?: EnrichWebtoonOptions,
-): Promise<WebtoonWithExtendedMeta> => {
+): Promise<EnrichWebtoonResult> => {
   const base: WebtoonWithExtendedMeta = {
     ...webtoon,
     synopsis: webtoon.synopsis ?? null,
@@ -57,7 +61,7 @@ export const enrichWebtoonMeta = async (
       const { data } = await getNaverArticleListInfo(titleId);
       const meta = parseNaverExtendedMeta(data);
       const totalEpisodeCount = await getNaverTotalEpisodeCount(titleId);
-      return {
+      return { ok: true, webtoon: {
         ...base,
         synopsis: base.synopsis ?? meta.synopsis,
         genres: base.genres?.length ? base.genres : meta.genres,
@@ -70,7 +74,7 @@ export const enrichWebtoonMeta = async (
         totalEpisodeCount: totalEpisodeCount ?? base.totalEpisodeCount,
         isOnHiatus:
           meta.isOnHiatus !== null ? meta.isOnHiatus : base.isOnHiatus,
-      };
+      } };
     }
 
     if (webtoon.provider === 'KAKAO') {
@@ -78,11 +82,11 @@ export const enrichWebtoonMeta = async (
       const fromIndex = options?.kakaoMetaIndex?.get(contentId);
       const meta =
         fromIndex ?? (await findKakaoCardExtendedMeta(contentId));
-      return {
+      return { ok: true, webtoon: {
         ...base,
         synopsis: base.synopsis ?? meta.synopsis,
         tags: base.tags?.length ? base.tags : meta.tags,
-      };
+      } };
     }
 
     if (webtoon.provider === 'KAKAO_PAGE') {
@@ -97,20 +101,29 @@ export const enrichWebtoonMeta = async (
         Boolean,
       ) as string[];
 
-      return {
+      return { ok: true, webtoon: {
         ...base,
         synopsis: content.description?.trim() ?? null,
         genres: [...new Set(genres)],
         tags: [],
-      };
+      } };
     }
   } catch (err) {
     checkJob();
-    console.warn(`⚠️ [enrich] ${webtoon.id} failed:`, String(err));
+    const status = (err as { response?: { status?: unknown } })?.response?.status;
+    const httpStatus = typeof status === 'number' && Number.isInteger(status) ? status : undefined;
+    console.warn(`⚠️ [enrich] ${webtoon.id} failed${httpStatus ? ` HTTP ${httpStatus}` : ''}`);
+    return { webtoon: base, ok: false, httpStatus };
   }
 
-  return base;
+  return { webtoon: base, ok: false };
 };
+
+export const enrichWebtoonMeta = async (
+  webtoon: NormalizedWebtoon,
+  options?: EnrichWebtoonOptions,
+): Promise<WebtoonWithExtendedMeta> => (await enrichWebtoonMetaResult(webtoon, options)).webtoon;
+
 
 const ENTITY_BY_PROVIDER: Record<
   Exclude<Provider, 'RIDI'>,

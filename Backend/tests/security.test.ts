@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { setTimeout as delay } from 'node:timers/promises';
 import { createApp } from '../src/app.js';
 import { RecommendationPool, ServiceBusy } from '../src/lib/recommendationPool.js';
 import { createLocalCatalogRepository } from '../src/lib/localCatalog.js';
@@ -62,4 +63,38 @@ test('catalog schema accepts every bundled work and rejects hostile links and fi
   assert.throws(() => assertCatalogItem({ ...source[0], thumbnail: ['https://attacker.invalid/pixel'] }));
   assert.throws(() => assertCatalogItem({ ...source[0], synopsis: 'x'.repeat(10001) }));
   assert.equal('seed' in await createLocalCatalogRepository(), false);
+});
+
+test('active cancellation preserves the ready worker and queued cancellation frees capacity', async () => {
+  const pool = new RecommendationPool(1, 3000, new URL('./cooperative-worker.mjs', import.meta.url));
+  try {
+    await pool.prepare([]);
+    const active = new AbortController();
+    const first = pool.run([], [], 1, undefined, [], active.signal);
+    const rejected = assert.rejects(first, ServiceBusy);
+    // Allow run's async preparation continuation to dispatch the first task.
+    await delay(20);
+    const queued = new AbortController();
+    const second = pool.run([], [], 1, undefined, [], queued.signal);
+    const secondRejected = assert.rejects(second, ServiceBusy);
+    assert.equal(pool.waiting, 1);
+    queued.abort(); await secondRejected;
+    assert.equal(pool.waiting, 0);
+    active.abort(); await rejected;
+    assert.deepEqual(await pool.run([], [], 1), []);
+    assert.equal(pool.ready, true);
+  } finally { await pool.close(); }
+});
+
+test('worker automatically recovers after repeated timeouts, including manual prepare between them', async () => {
+  const pool = new RecommendationPool(0, 30, new URL('./slow-worker.mjs', import.meta.url));
+  try {
+    await pool.prepare([]);
+    await assert.rejects(pool.run([], [], 1), ServiceBusy);
+    await pool.prepare([]);
+    await assert.rejects(pool.run([], [], 1), ServiceBusy);
+    // Recovery must be rescheduled after a cleared recovery timer.
+    for (let i = 0; i < 60 && !pool.ready; i++) await delay(100);
+    assert.equal(pool.ready, true);
+  } finally { await pool.close(); }
 });

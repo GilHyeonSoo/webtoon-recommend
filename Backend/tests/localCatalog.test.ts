@@ -5,6 +5,7 @@ import { createApp } from '../src/app.js';
 import { createLocalCatalogRepository, localCatalogFile, titleMatchesQuery } from '../src/lib/localCatalog.js';
 import type { WebtoonDto } from '../src/lib/mapWebtoon.js';
 import { normalizeText, recommendSimilar } from '../src/lib/similarity.js';
+import { loadArtStyle } from '../src/lib/artStyle.js';
 
 test('local catalog searches, paginates and finds the bundled backend JSON', async () => {
   const source: WebtoonDto[] = JSON.parse(await readFile(localCatalogFile, 'utf8'));
@@ -44,6 +45,7 @@ test('local HTTP API ranks JSON candidates on the backend and exposes no seed ro
   const { webtoons: items } = await repository.list({ limit: source.length, offset: 0 });
   const selected = [items.find((item) => item.id === 'naver_641253')!, items.find((item) => item.id === 'kakao_3090')!];
   const app = createApp(repository, { rateLimits: false });
+  await app.locals.prepare(); // Production warms the index before accepting HTTP.
   const server = app.listen(0, '127.0.0.1');
   await new Promise<void>((resolve) => server.once('listening', resolve));
   const address = server.address();
@@ -59,7 +61,8 @@ test('local HTTP API ranks JSON candidates on the backend and exposes no seed ro
     assert.equal(result.catalogCount, items.length);
     assert.equal(result.method, 'content-similarity-v1');
     assert.deepEqual(result.selected, selected);
-    assert.deepEqual(result.recommendations, recommendSimilar(items, selected, 10));
+    // The worker blends the bundled art-style export into the text score.
+    assert.deepEqual(result.recommendations, recommendSimilar(items, selected, 10, undefined, [], loadArtStyle()));
     assert.ok(result.recommendations.every((entry: { webtoon: WebtoonDto }) => !selected.some((item) => item.id === entry.webtoon.id)));
     const detail = await fetch(`${url}/api/webtoons/${selected[0].id}`);
     assert.deepEqual((await detail.json()).webtoon, selected[0]);

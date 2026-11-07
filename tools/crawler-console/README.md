@@ -43,8 +43,10 @@ cd tools\crawler-console
 | 단계 | 버튼 |
 |------|------|
 | 1 | 네이버 / 카카오 크롤 |
-| 2 | 통합 실행 |
+| 2 | 통합 실행 (export enrich 401/404 → 2차 재시도 후 merge·sync) |
 | 3 | 배포 실행 |
+
+통합 export는 enrich 실패(HTTP 401·404) 작품만 모아 **한 번 더** 재시도합니다. `config.json` → `export.enrichRetry` (`enabled`, `delayMs`, `gapMs`).
 
 ## 3단계 배포 동작
 

@@ -134,3 +134,22 @@ test('bounded mapper waits for active failures and never exceeds its configured 
   }));
   assert.equal(active, 0);
 });
+
+test('enrichment reports retry status without swallowing cancellation or breaking legacy callers', async () => {
+  const naver = require('../src/modules/naver/functions/naverDetailApi');
+  const { enrichWebtoonMeta, enrichWebtoonMetaResult, enrichRetryableHttpStatuses } = require('../src/modules/enrich/enrichWebtoonMeta');
+  const { jobContext } = require('../src/security/context');
+  const original = naver.getNaverArticleListInfo;
+  try {
+    naver.getNaverArticleListInfo = async () => { throw { response: { status: 404 } }; };
+    const result = await enrichWebtoonMetaResult(row);
+    assert.equal(result.ok, false); assert.equal(result.httpStatus, 404);
+    assert.equal(result.webtoon.id, row.id); assert.equal(enrichRetryableHttpStatuses.has(404), true);
+    assert.equal((await enrichWebtoonMeta(row)).id, row.id);
+    const controller = new AbortController(); controller.abort(new Error('test job aborted'));
+    await assert.rejects(jobContext.run(controller.signal, () => enrichWebtoonMetaResult(row)), /test job aborted/);
+    const index = new Map([[1, { synopsis: 'Stored metadata', genres: [], tags: ['tag'] }]]);
+    const successful = await enrichWebtoonMetaResult({ ...row, id: 'kakao_1', provider: 'KAKAO' }, { kakaoMetaIndex: index });
+    assert.equal(successful.ok, true); assert.equal(successful.webtoon.synopsis, 'Stored metadata');
+  } finally { naver.getNaverArticleListInfo = original; }
+});

@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-07",
+  "environment": {
+    "os": "macOS arm64",
+    "python": "3.12.16",
+    "torch": "2.7.1",
+    "inference_device": "cpu",
+    "precision": "fp32",
+    "native_windows_execution_tested": false,
+    "cuda_inference_tested": false
+  },
+  "checks": {
+    "unit_and_integration_tests": {"passed": 17, "failed": 0},
+    "pip_check": "passed",
+    "windows_python_311_binary_dependency_resolution": "passed",
+    "real_thumbnail_inference": {
+      "works": ["KAKAO/kakao_2453", "KAKAO/kakao_2695", "NAVER/naver_103391"],
+      "source_images": 7,
+      "analyzed_views": 22,
+      "work_json_schema_validation": "passed",
+      "dino_dimensions": 384,
+      "wd14_pooled_general_dimensions": 8106
+    },
+    "resume": {"selected_works": 3, "reused": 3, "reanalyzed": 0, "state": "completed"},
+    "offline_inference_with_socket_connections_blocked": "passed",
+    "real_umap_hdbscan_test": {"input": "75 synthetic vectors in 3 separated groups", "state": "passed"},
+    "gpu_oom_batch_retry": "passed with simulated CUDA OOM",
+    "real_sample_clustering": "3 works below min_cluster_size=15; recorded as noise with an explicit insufficient-samples state",
+    "git_diff_check": "passed"
+  }
+}

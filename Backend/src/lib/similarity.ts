@@ -2,6 +2,7 @@ import type { RecommendationPreferences } from './preferences.js';
 import { passesPreferenceFilters, preferenceReasons } from './preferences.js';
 import { tasteTraitsInText } from './tasteVocabulary.js';
 import type { WebtoonDto } from './mapWebtoon.js';
+import { matchArt, type ArtStyleIndex } from './artStyle.js';
 
 const genreNames: Record<string, string> = {
   pure: '로맨스', romance: '로맨스', action: '액션', daily: '일상', thrill: '스릴러', thriller: '스릴러',
@@ -19,6 +20,10 @@ const CHANNEL_WEIGHTS = {
   title: 0.10,
   author: 0.05,
 } as const;
+// Art style (image embeddings from the local art engine) is a fixed 20% of the final score whenever
+// both sides have art data: final = 0.8 * text + 0.2 * art. It is not renormalised like the text
+// channels, so works with sparse text metadata are not ranked on art alone.
+const ART_WEIGHT = 0.20;
 
 const genres = (item: WebtoonDto) => [...new Set([
   ...item.genres, ...(item.primaryGenre && item.primaryGenre !== 'unknown' ? [item.primaryGenre] : []),
@@ -126,6 +131,7 @@ function buildProfile(selected: WebtoonDto[], vectors: Map<string, ChannelVector
 function fusedSimilarity(
   profiles: Record<keyof typeof CHANNEL_WEIGHTS, Vector>,
   candidate: ChannelVectors,
+  artScore?: number,
 ): number {
   let weighted = 0;
   let totalWeight = 0;
@@ -135,12 +141,13 @@ function fusedSimilarity(
     weighted += weight * cosine(profile, candidate[channel]);
     totalWeight += weight;
   }
-  return totalWeight ? Math.min(1, weighted / totalWeight) : 0;
+  const text = totalWeight ? Math.min(1, weighted / totalWeight) : 0;
+  return artScore === undefined ? text : Math.min(1, (1 - ART_WEIGHT) * text + ART_WEIGHT * artScore);
 }
 
 export type SimilarRecommendation = { webtoon: WebtoonDto; similarity: number; reasons: string[] };
 
-export function createRecommendationIndex(catalog: WebtoonDto[]) {
+export function createRecommendationIndex(catalog: WebtoonDto[], art?: ArtStyleIndex) {
   const rawChannels = catalog.map(channelFeatures);
   const channelKeys = Object.keys(CHANNEL_WEIGHTS) as (keyof typeof CHANNEL_WEIGHTS)[];
   const vectors = new Map<string, ChannelVectors>();
@@ -158,32 +165,35 @@ export function createRecommendationIndex(catalog: WebtoonDto[]) {
 
   const metadata = new Map(catalog.map((item) => [item.id, { genres: genres(item), tags: tags(item) }]));
   return (selected: WebtoonDto[], limit = 10, preferences?: RecommendationPreferences, excludeIds: readonly string[] = [], shouldAbort: () => boolean = () => false): SimilarRecommendation[] => {
-  if (shouldAbort()) throw new Error('Recommendation canceled');
-  const profiles = Object.fromEntries(channelKeys.map((channel) => [channel, buildProfile(selected, vectors, channel)])) as Record<keyof typeof CHANNEL_WEIGHTS, Vector>;
-  const selectedIds = new Set(selected.map((item) => item.id));
-  const excludedIds = new Set(excludeIds);
-  const selectedGenres = new Set(selected.flatMap((item) => metadata.get(item.id)!.genres));
-  const selectedTags = new Set(selected.flatMap((item) => metadata.get(item.id)!.tags));
-
-  return catalog.filter((item) => !selectedIds.has(item.id) && !excludedIds.has(item.id) && passesPreferenceFilters(item, preferences)).map((webtoon) => {
     if (shouldAbort()) throw new Error('Recommendation canceled');
-    const candidate = vectors.get(webtoon.id)!;
-    const reasons: string[] = [];
-    const sharedGenres = metadata.get(webtoon.id)!.genres.filter((value) => selectedGenres.has(value));
-    const sharedTags = metadata.get(webtoon.id)!.tags.filter((value) => selectedTags.has(value) && !value.startsWith('trait:'));
-    if (sharedGenres.length) reasons.push(`${sharedGenres.slice(0, 2).join(' · ')} 장르가 닮았어요`);
-    if (sharedTags.length) reasons.push(`${sharedTags.slice(0, 2).join(' · ')} 취향이 겹쳐요`);
-    const profileSynopsis = profiles.synopsis;
-    if ([...candidate.synopsis.keys()].some((key) => profileSynopsis.has(key))) reasons.push('줄거리에 비슷한 표현이 있어요');
-    const baseSimilarity = fusedSimilarity(profiles, candidate);
-    if (!baseSimilarity) reasons.push('일치하는 취향 정보가 부족해 함께 둘러볼 작품으로 제안해요');
-    const prefReasons = preferenceReasons(webtoon, preferences);
-    return { webtoon, similarity: baseSimilarity, reasons: [...prefReasons, ...reasons].slice(0, 3) };
-  }).sort((a, b) => b.similarity - a.similarity || a.webtoon.title.trim().localeCompare(b.webtoon.title.trim(), 'ko') || a.webtoon.id.localeCompare(b.webtoon.id)).slice(0, limit);
+    const profiles = Object.fromEntries(channelKeys.map((channel) => [channel, buildProfile(selected, vectors, channel)])) as Record<keyof typeof CHANNEL_WEIGHTS, Vector>;
+    const selectedIds = new Set(selected.map((item) => item.id));
+    const excludedIds = new Set(excludeIds);
+    const selectedGenres = new Set(selected.flatMap((item) => metadata.get(item.id)!.genres));
+    const selectedTags = new Set(selected.flatMap((item) => metadata.get(item.id)!.tags));
+    const artSeeds = art ? selected.map((item) => art.vectors.get(item.id)).filter((vector): vector is Float32Array => !!vector) : [];
+
+    return catalog.filter((item) => !selectedIds.has(item.id) && !excludedIds.has(item.id) && passesPreferenceFilters(item, preferences)).map((webtoon) => {
+      if (shouldAbort()) throw new Error('Recommendation canceled');
+      const candidate = vectors.get(webtoon.id)!;
+      const artMatch = art ? matchArt(art, artSeeds, webtoon.id) : undefined;
+      const reasons: string[] = [];
+      const sharedGenres = metadata.get(webtoon.id)!.genres.filter((value) => selectedGenres.has(value));
+      const sharedTags = metadata.get(webtoon.id)!.tags.filter((value) => selectedTags.has(value) && !value.startsWith('trait:'));
+      if (sharedGenres.length) reasons.push(`${sharedGenres.slice(0, 2).join(' · ')} 장르가 닮았어요`);
+      if (artMatch?.similar) reasons.push('그림체가 비슷해요');
+      if (sharedTags.length) reasons.push(`${sharedTags.slice(0, 2).join(' · ')} 취향이 겹쳐요`);
+      const profileSynopsis = profiles.synopsis;
+      if ([...candidate.synopsis.keys()].some((key) => profileSynopsis.has(key))) reasons.push('줄거리에 비슷한 표현이 있어요');
+      const baseSimilarity = fusedSimilarity(profiles, candidate, artMatch?.score);
+      if (!baseSimilarity) reasons.push('일치하는 취향 정보가 부족해 함께 둘러볼 작품으로 제안해요');
+      const prefReasons = preferenceReasons(webtoon, preferences);
+      return { webtoon, similarity: baseSimilarity, reasons: [...prefReasons, ...reasons].slice(0, 3) };
+    }).sort((a, b) => b.similarity - a.similarity || a.webtoon.title.trim().localeCompare(b.webtoon.title.trim(), 'ko') || a.webtoon.id.localeCompare(b.webtoon.id)).slice(0, limit);
   };
 }
 
 // CLI/test convenience; production workers retain their index for the catalog lifetime.
-export function recommendSimilar(catalog: WebtoonDto[], selected: WebtoonDto[], limit = 10, preferences?: RecommendationPreferences, excludeIds: readonly string[] = []) {
-  return createRecommendationIndex(catalog)(selected, limit, preferences, excludeIds);
+export function recommendSimilar(catalog: WebtoonDto[], selected: WebtoonDto[], limit = 10, preferences?: RecommendationPreferences, excludeIds: readonly string[] = [], art?: ArtStyleIndex) {
+  return createRecommendationIndex(catalog, art)(selected, limit, preferences, excludeIds);
 }

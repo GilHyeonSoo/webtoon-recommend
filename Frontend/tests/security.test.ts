@@ -14,6 +14,10 @@ test('API boundary rejects hostile URLs, wrong shapes and invalid recommendation
     }
     globalThis.fetch = async () => new Response(JSON.stringify({ webtoons: [{ ...item, authors: 'wrong' }], total: 1 }))
     await assert.rejects(searchWebtoons('test', new AbortController().signal), /올바른 웹툰 데이터/)
+    for (const authors of [undefined, null]) {
+      globalThis.fetch = async () => new Response(JSON.stringify({ webtoons: [{ ...item, authors }], total: 1 }))
+      await assert.rejects(searchWebtoons('test', new AbortController().signal), /올바른 웹툰 데이터/)
+    }
     globalThis.fetch = async () => new Response(JSON.stringify({ selected: [item], recommendations: [{ webtoon: item, similarity: 10, reasons: [] }], catalogCount: 6010, method: 'test' }))
     await assert.rejects(analyzeWebtoons([item.id], new AbortController().signal), /올바른 웹툰 데이터/)
   } finally { globalThis.fetch = original }

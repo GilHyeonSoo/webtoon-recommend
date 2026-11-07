@@ -33,7 +33,7 @@ export class RecommendationPool {
     if (this.initialized) return;
     if (this.loading) return this.loading;
     this.catalog = items;
-    if (this.recovery) clearTimeout(this.recovery);
+    if (this.recovery) { clearTimeout(this.recovery); this.recovery = undefined; }
     this.loading = new Promise<void>((resolve, reject) => {
       const development = !this.workerSource && import.meta.url.endsWith('.ts');
       const source = this.workerSource ?? new URL(`./recommendationWorker.${development ? 'ts' : 'js'}`, import.meta.url);

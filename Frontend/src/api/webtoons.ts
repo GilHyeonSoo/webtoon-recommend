@@ -40,6 +40,10 @@ export function searchWebtoons(q: string, signal: AbortSignal) {
   const params = new URLSearchParams({ q, limit: '12' })
   return request<{ webtoons: Webtoon[]; total: number }>(`/api/webtoons?${params}`, { signal })
 }
+export async function fetchWebtoon(id: string, signal: AbortSignal): Promise<Webtoon> {
+  const data = await request<{ webtoon: Webtoon }>(`/api/webtoons/${encodeURIComponent(id)}`, { signal })
+  return data.webtoon
+}
 export function analyzeWebtoons(webtoonIds: string[], signal: AbortSignal, preferences?: RecommendationPreferences, excludeIds?: string[]) {
   const body: { webtoonIds: string[]; limit: number; preferences?: RecommendationPreferences; excludeIds?: string[] } = { webtoonIds, limit: 10 }
   if (preferences) {
@@ -64,15 +68,25 @@ function validateResponse(path: string, value: unknown): void {
     if (path.startsWith('/api/recommendations')) {
       if (!Array.isArray(data.selected) || data.selected.length > 3 || !Array.isArray(data.recommendations) || data.recommendations.length > 20
         || !Number.isSafeInteger(data.catalogCount) || (data.catalogCount as number) < 0 || typeof data.method !== 'string' || data.method.length > 100) return invalid()
-      data.selected.forEach(assertCatalogItem)
+      data.selected.forEach(assertApiWebtoon)
       for (const entry of data.recommendations) {
         if (!entry || typeof entry !== 'object' || typeof entry.similarity !== 'number' || !Number.isFinite(entry.similarity) || entry.similarity < 0 || entry.similarity > 1
           || !Array.isArray(entry.reasons) || entry.reasons.length > 10 || entry.reasons.some((reason: unknown) => typeof reason !== 'string' || reason.length > 2000)) return invalid()
-        assertCatalogItem(entry.webtoon)
+        assertApiWebtoon(entry.webtoon)
       }
+    } else if (path.startsWith('/api/webtoons/')) {
+      assertApiWebtoon(data.webtoon)
     } else {
       if (!Array.isArray(data.webtoons) || data.webtoons.length > 100 || !Number.isSafeInteger(data.total) || (data.total as number) < 0) return invalid()
-      data.webtoons.forEach(assertCatalogItem)
+      data.webtoons.forEach(assertApiWebtoon)
     }
   } catch { invalid() }
+}
+
+function assertApiWebtoon(value: unknown): void {
+  assertCatalogItem(value)
+  // Input catalogs may omit optional arrays; rendered API records must contain them.
+  for (const field of ['thumbnail', 'authors', 'genres', 'tags', 'updateDays']) {
+    if (!Array.isArray(value[field])) throw new Error('Missing API array')
+  }
 }

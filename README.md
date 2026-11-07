@@ -5,6 +5,10 @@
 네이버·카카오·카카오페이지 웹툰 메타데이터를 활용해 **추천·검색·필터** 기능을 제공하는 웹앱을 만드는 프로젝트입니다.  
 데이터 원천은 오픈소스 [korea-webtoon-api](https://github.com/HyeokjaeLee/korea-webtoon-api)를 사용하고, **프론트엔드(Vercel)** 와 **백엔드 BFF(Railway)** 를 분리해 배포합니다.
 
+`Backend/data/webtoons.json`의 네이버·카카오웹툰 썸네일은 루트에서 `node scripts/crawl-thumbnails.mjs`로 수집합니다. 카카오페이지는 제외하며 기본 저장 위치는 `이미지/`입니다. 대상 집계는 `--dry-run`, 실행 및 재개 방법은 [썸네일 수집 엔진 안내](docs/THUMBNAIL-CRAWLER.ko.md)를 참고하세요.
+
+수집한 이미지는 Windows 로컬 **작화 분석 엔진**으로 분석할 수 있습니다. YOLOv8-face·DINOv2·WD-14·UMAP·HDBSCAN 설치와 실행, 작품별 JSON 저장·재개 방법은 [작화 분석 엔진 안내](docs/ART-STYLE-ENGINE.ko.md)를 참고하세요.
+
 ---
 
 ## 목표와 범위

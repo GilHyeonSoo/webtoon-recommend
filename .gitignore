@@ -11,3 +11,12 @@ Backend/dist/
 KOREA_WEBTOON_API/node_modules/
 .supabase/
 tools/crawler-console/config.json
+/이미지/*
+!/이미지/.gitkeep
+
+# Windows local art-style engine
+/.venv-art/
+/.art-models/
+/작화분석결과/
+__pycache__/
+*.py[cod]
