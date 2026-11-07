@@ -8,6 +8,30 @@
     {
       "source": "/api/:path*",
       "destination": "https://webtoon-api-production-5e28.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/webtoons/:id",
+      "destination": "/webtoons/:id.html"
+    },
+    {
+      "source": "/genres/:slug",
+      "destination": "/genres/:slug.html"
+    },
+    {
+      "source": "/guides/:slug",
+      "destination": "/guides/:slug.html"
+    },
+    {
+      "source": "/webtoons",
+      "destination": "/webtoons.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/methodology",
+      "destination": "/methodology.html"
     }
   ],
   "headers": [
@@ -68,7 +92,7 @@
       ]
     }
   ],
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
     {
@@ -80,6 +104,41 @@
         }
       ],
       "destination": "https://webtoonrecommend.site/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/webtoons/:id.html",
+      "destination": "/webtoons/:id",
+      "permanent": true
+    },
+    {
+      "source": "/genres/:slug.html",
+      "destination": "/genres/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/guides/:slug.html",
+      "destination": "/guides/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/webtoons.html",
+      "destination": "/webtoons",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/methodology.html",
+      "destination": "/methodology",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
       "permanent": true
     }
   ]

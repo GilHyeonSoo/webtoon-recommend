@@ -5,7 +5,9 @@ const { pages, publicWorks, preview } = JSON.parse(await readFile(new URL('../.s
 const config = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'))
 assert(!config.rewrites.some((rule) => rule.source === '/(.*)'), 'Catch-all rewrite would hide 404s')
 assert(config.rewrites.some((rule) => rule.source === '/api/:path*' && rule.destination.endsWith('/api/:path*')))
-assert(config.cleanUrls && config.trailingSlash === false)
+assert(config.cleanUrls === false && config.trailingSlash === false)
+assert(config.rewrites.some((rule) => rule.source === '/webtoons/:id' && rule.destination === '/webtoons/:id.html'))
+assert(!config.redirects.some((rule) => rule.source.includes('google')), 'Verification HTML must retain its original URL')
 assert(config.headers.some((rule) => rule.source === '/api/:path*' && rule.headers.some((header) => header.key === 'X-Robots-Tag' && header.value === 'noindex')))
 const titles = new Set(), descriptions = new Set(), allPaths = new Set(pages.map((page) => page.path)), inLinks = new Map()
 for (const page of pages) {

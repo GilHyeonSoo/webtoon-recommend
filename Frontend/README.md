@@ -74,7 +74,7 @@ API 클라이언트 테스트와 Backend의 유사도·HTTP 테스트를 사용�
 - `src/seo/content.ts`에서 소개할 작품 ID와 직접 작성한 비교 문구를 관리합니다. 원본 줄거리를 그대로 재게시하지 않습니다. `src/data/webtoons.json`에서 없는 작품·중복 ID·잘못된 공식 URL·필수 근거 누락이 있으면 빌드가 실패합니다.
 - 공개 작품 페이지의 관련 목록은 소규모 소개 목록의 갈래·태그를 비교합니다. Backend의 개인화 유사도와 구분하며 퍼센트·평점·인기 순위로 표시하지 않습니다. `/?seed=작품ID`는 작품을 선택한 첫 화면으로 연결하고 대표 주소는 `/`입니다.
 - `dist/robots.txt`, `dist/sitemap.xml`을 빌드에서 생성합니다. 확인되지 않은 lastmod 날짜를 넣지 않습니다. `VERCEL_ENV=preview` 또는 `SEO_NOINDEX=true`에서는 모든 문서가 noindex이고 사이트맵은 비웁니다.
-- `vercel.json`은 API 프록시와 보안 헤더를 유지하고 API에 `X-Robots-Tag: noindex`를 추가합니다. `cleanUrls`로 `.html` 없는 주소를 사용하며 없는 주소는 플랫폼의 실제 404를 반환합니다. 로컬 Vite 개발 서버의 SPA fallback을 운영 404 검증으로 사용하지 마세요.
+- `vercel.json`은 API 프록시와 보안 헤더를 유지하고 API에 `X-Robots-Tag: noindex`를 추가합니다. 공개 문서 경로만 명시적으로 정적 HTML에 연결하고 없는 주소는 플랫폼의 실제 404를 반환합니다. `.html` 정리는 해당 공개 문서에만 적용하며 Google 소유권 확인 파일의 원래 주소는 유지합니다. 로컬 Vite 개발 서버의 SPA fallback을 운영 404 검증으로 사용하지 마세요.
 - Paperlogy는 글리프를 제거하지 않은 WOFF2 3종을 로컬 제공하며 `public/fonts/OFL.txt`에 라이선스를 포함합니다. 작은 로고·96px 파비콘·Apple 아이콘과 원래 아이콘의 공유 이미지를 사용합니다.
 - 빌드 검사는 제목·설명 중복, canonical, JSON-LD, 하나의 H1, 깨진 링크·고립 문서, 사이트맵, 프록시 정책을 확인합니다. `npm run test:seo`로 생성물 검사를 다시 실행할 수 있습니다. 미리보기 테스트 후에는 운영 환경으로 다시 빌드하세요.
 
