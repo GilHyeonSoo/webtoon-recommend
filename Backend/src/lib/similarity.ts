@@ -182,7 +182,6 @@ export function createRecommendationIndex(catalog: WebtoonDto[], art?: ArtStyleI
       const sharedGenres = metadata.get(webtoon.id)!.genres.filter((value) => selectedGenres.has(value));
       const sharedTags = metadata.get(webtoon.id)!.tags.filter((value) => selectedTags.has(value) && !value.startsWith('trait:'));
       if (sharedGenres.length) reasons.push(`${sharedGenres.slice(0, 2).join(' · ')} 장르가 닮았어요`);
-      if (artMatch?.similar) reasons.push('그림체가 비슷해요');
       if (sharedTags.length) reasons.push(`${sharedTags.slice(0, 2).join(' · ')} 취향이 겹쳐요`);
       const profileSynopsis = profiles.synopsis;
       if ([...candidate.synopsis.keys()].some((key) => profileSynopsis.has(key))) reasons.push('줄거리에 비슷한 표현이 있어요');

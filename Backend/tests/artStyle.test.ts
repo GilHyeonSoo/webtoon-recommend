@@ -42,7 +42,7 @@ test('art score is calibrated to [0, 1] and averages each selected work equally'
   assert.equal(matchArt(art, [], 'c'), undefined);
 });
 
-test('art style breaks ties between text-identical candidates and adds a reason', () => {
+test('art style breaks ties without exposing the internal comparison in public reasons', () => {
   const seed = item('seed', { genres: ['action'] });
   const sameStyle = item('same-style', { genres: ['action'] });
   const otherStyle = item('other-style', { genres: ['action'] });
@@ -55,8 +55,7 @@ test('art style breaks ties between text-identical candidates and adds a reason'
   const withArt = recommendSimilar(catalog, [seed], 10, undefined, [], art);
   assert.equal(withArt[0].webtoon.id, 'same-style');
   assert.ok(withArt[0].similarity > withArt[1].similarity);
-  assert.ok(withArt[0].reasons.includes('그림체가 비슷해요'));
-  assert.ok(!withArt[1].reasons.includes('그림체가 비슷해요'));
+  assert.ok(withArt.every((result) => !result.reasons.some((reason) => /그림체|작화/.test(reason))));
 });
 
 test('works without art keep their text-only score; art is capped at a fixed 25% share', () => {

@@ -2,7 +2,6 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { createElement } from 'react'
 import { createKeywords } from './seo-keywords.mjs'
-import { parsePublicArt, publicSnapshotMatches, rankArtRelated, artExamples } from './art-style-related.mjs'
 import * as seo from '../.ssg/render.js'
 
 const { site, genres, guides, editorials, workPath, assertCatalogItem } = seo
@@ -25,17 +24,6 @@ const works = editorials.map((editorial) => {
   if (editorial.note.length < 50 || editorial.contrast.length < 20) throw new Error(`Thin editorial: ${editorial.id}`)
   return { editorial, webtoon }
 })
-const artSnapshot = JSON.parse(await readFile(new URL('../data/art-style-public.json', import.meta.url), 'utf8'))
-const publicArt = parsePublicArt(artSnapshot, works.map((work) => work.webtoon.id))
-// Full monorepo builds also check freshness. A standalone frontend needs only the committed public snapshot.
-let backendArt
-try { backendArt = JSON.parse(await readFile(new URL('../../Backend/data/art-style.json', import.meta.url), 'utf8')) }
-catch (error) { if (error.code !== 'ENOENT') throw error }
-if (backendArt && !publicSnapshotMatches(backendArt, artSnapshot, works.map((work) => work.webtoon.id))) {
-  throw new Error('Public art snapshot is stale. Run npm --prefix Frontend run sync:art before building.')
-}
-const examples = artExamples(works, publicArt)
-if (!examples.length) throw new Error('Art guide requires real public-work pairs above the similarity threshold')
 // No live API, no backend credentials, and no all-catalog ranking at request time.
 const tags = (work) => new Set(work.webtoon.tags.map((tag) => tag.replace(/^#/, '').trim()))
 const relatedTo = (work) => {
@@ -55,7 +43,7 @@ const scripts = assetHead.filter((tag) => tag.startsWith('<script'))
 if (!styles.length || !scripts.length) throw new Error('Missing client build assets')
 const pages = []
 const breadcrumb = (items) => ({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ name: '홈', path: '/' }, ...items].map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: `${site.origin}${item.path}` })) })
-async function writePage({ path, title, description, component, props, home = false, noindex = false, structured = [], keywords = [], artMatches = [] }) {
+async function writePage({ path, title, description, component, props, home = false, noindex = false, structured = [], keywords = [] }) {
   if (pages.some((page) => page.path === path)) throw new Error(`Duplicate page ${path}`)
   const body = home ? seo.renderHome() : seo.renderToStaticMarkup(createElement(component, props))
   const canonical = `${site.origin}${path}`
@@ -76,36 +64,29 @@ ${styles.join('\n')}
   const destination = new URL(file, output)
   await mkdir(new URL('.', destination), { recursive: true })
   await writeFile(destination, html)
-  pages.push({ path, file, title, description, keywordCount: pageKeywords.length, artMatches,
-    indexable: !(preview || noindex), hash: createHash('sha256').update(html).digest('hex') })
+  pages.push({ path, file, title, description, keywordCount: pageKeywords.length, indexable: !(preview || noindex), hash: createHash('sha256').update(html).digest('hex') })
 }
 await writePage({ path: '/', title: site.title, description: site.description, home: true, structured: [{ '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: `${site.origin}/`, inLanguage: 'ko' }] })
 await writePage({ path: '/webtoons', title: '작품별 소개와 비슷한 웹툰 | 웹툰추천', description: '웹툰별 추천 포인트와 닮은 작품을 비교해보세요. 로맨스·판타지·무협·액션·드라마·일상·스릴러에서 다음 이야기를 찾아보세요.', component: seo.DirectoryPage, props: { works }, structured: [breadcrumb([{ name: '작품', path: '/webtoons' }])] })
 for (const genre of genres) {
   const path = `/genres/${genre.slug}`
-  await writePage({ path, title: `${genre.name} 웹툰 추천 | 웹툰추천`, description: genre.intro, component: seo.GenrePage, props: { slug: genre.slug, works: works.filter((work) => work.editorial.genre === genre.slug) }, keywords: [genre.name, `${genre.name} 웹툰`, `${genre.name} 웹툰 추천`, `${genre.name} 그림체 비교`, `${genre.name} 취향 추천`], structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: genre.name, path }])] })
+  await writePage({ path, title: `${genre.name} 웹툰 추천 | 웹툰추천`, description: genre.intro, component: seo.GenrePage, props: { slug: genre.slug, works: works.filter((work) => work.editorial.genre === genre.slug) }, keywords: [genre.name, `${genre.name} 웹툰`, `${genre.name} 웹툰 추천`], structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: genre.name, path }])] })
 }
 for (const guide of guides) {
   const candidates = guide.kind === 'completed' ? works.filter((work) => work.webtoon.isEnd) : genres.map((genre) => works.find((work) => work.editorial.genre === genre.slug)).filter(Boolean)
   const path = `/guides/${guide.slug}`
-  const keywords = guide.kind === 'completed' ? ['완결 웹툰 추천', '완결작 찾기', '완결 웹툰 고르기'] : guide.kind === 'art' ? ['그림체가 비슷한 웹툰 찾기', '웹툰 작화 비교 사례', '웹툰 썸네일 분석 기준'] : ['내 취향 웹툰 찾기', '웹툰 취향 정리', '좋아하는 이유로 웹툰 추천']
-  await writePage({ path, title: `${guide.title} | 웹툰추천`, description: guide.description, component: seo.GuidePage, props: { slug: guide.slug, works: candidates, examples: guide.kind === 'art' ? examples : [] }, keywords, structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: guide.title, path }])] })
+  await writePage({ path, title: `${guide.title} | 웹툰추천`, description: guide.description, component: seo.GuidePage, props: { slug: guide.slug, works: candidates }, structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: guide.title, path }])] })
 }
 for (const work of works) {
   const item = work.webtoon, path = workPath(item.id)
-  const artRelated = rankArtRelated(work, works, publicArt)
-  await writePage({ path, title: `${item.title.trim()} 비슷한 웹툰 | 취향·그림체 비교 - 웹툰추천`, description: `${work.editorial.note} 이야기 취향과 썸네일의 그림체 특징으로 함께 비교할 웹툰을 살펴보세요.`, component: seo.WorkPage, props: { work, related: relatedTo(work), artRelated },
-    keywords: [item.title.trim(), `${item.title.trim()} 비슷한 웹툰`, `${item.title.trim()} 그림체`, `${item.title.trim()} 작화`, ...item.authors.map((author) => `${author} 웹툰`), ...item.tags.map((tag) => tag.replace(/^#/, ''))],
-    artMatches: artRelated.map((match) => ({ id: match.work.webtoon.id, cosine: match.cosine, similar: match.similar })),
-    structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: item.title.trim(), path }])] })
+  await writePage({ path, title: `${item.title.trim()} 비슷한 웹툰 추천 | 웹툰추천`, description: work.editorial.note, component: seo.WorkPage, props: { work, related: relatedTo(work) }, keywords: [item.title.trim(), `${item.title.trim()} 비슷한 웹툰`, ...item.authors.map((author) => `${author} 웹툰`), ...item.tags.map((tag) => tag.replace(/^#/, ''))], structured: [breadcrumb([{ name: '작품', path: '/webtoons' }, { name: item.title.trim(), path }])] })
 }
 await writePage({ path: '/about', title: '서비스 소개 | 웹툰추천', description: '웹툰추천의 서비스 범위, 작품 정보 출처, 수정 요청 방법을 안내합니다.', component: seo.AboutPage, structured: [breadcrumb([{ name: '서비스 소개', path: '/about' }])] })
-await writePage({ path: '/methodology', title: '웹툰 추천 기준 | 취향·그림체 유사도를 계산하는 방법', description: '내용 정보 75%와 작화 25%를 반영하는 웹툰 맞춤 추천 기준, 썸네일 분석 범위, 정보 누락 처리와 공개 작품 비교의 차이를 알아보세요.', component: seo.MethodologyPage, keywords: ['웹툰 추천 반영 비율', '웹툰 작화 25퍼센트', '웹툰 내용 정보 75퍼센트', '웹툰 유사도 의미'], structured: [breadcrumb([{ name: '추천 기준', path: '/methodology' }])] })
+await writePage({ path: '/methodology', title: '추천 결과와 이용 안내 | 웹툰추천', description: '웹툰 추천 결과의 의미와 플랫폼·연재 상태 필터, 재검색, 작품 정보 확인 방법을 안내합니다.', component: seo.MethodologyPage, structured: [breadcrumb([{ name: '추천 안내', path: '/methodology' }])] })
 await writePage({ path: '/404', title: '페이지를 찾을 수 없어요 | 웹툰추천', description: '주소를 확인하거나 작품 목록에서 새로운 이야기를 찾아보세요.', component: seo.NotFoundPage, noindex: true })
 const indexable = pages.filter((page) => page.indexable)
 // Omit lastmod until actual content revision dates are maintained. Build time is not an editorial update.
 await writeFile(new URL('sitemap.xml', output), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable.map((page) => `<url><loc>${escape(`${site.origin}${page.path}`)}</loc></url>`).join('\n')}\n</urlset>\n`)
 await writeFile(new URL('robots.txt', output), preview ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${site.origin}/sitemap.xml\n`)
-await writeFile(new URL('../.ssg/seo-manifest.json', import.meta.url), JSON.stringify({ preview, pages, publicWorks: works.map((work) => work.webtoon.id), artCalibration: artSnapshot.calibration,
-  artExamples: examples.map((pair) => ({ first: pair.work.webtoon.id, second: pair.other.webtoon.id, cosine: pair.cosine })) }, null, 2))
+await writeFile(new URL('../.ssg/seo-manifest.json', import.meta.url), JSON.stringify({ preview, pages, publicWorks: works.map((work) => work.webtoon.id) }, null, 2))
 console.log(`SEO: ${indexable.length} indexable pages, ${works.length} editorial works; no live API requests`)

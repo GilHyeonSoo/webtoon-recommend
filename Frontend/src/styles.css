@@ -336,7 +336,7 @@
   .genre-links { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0; }
   .genre-links a { display: inline-flex; gap: 24px; align-items: center; border: 1px solid #d9dde4; border-radius: 30px; min-height: 48px; padding: 12px 20px; text-decoration: none; background: #fff; transition: background 200ms; }
   .genre-links a:hover { background: #f2f4f7; }
-  .guide-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 40px 0 56px; }
+  .guide-links { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0 56px; }
   .guide-links > a { text-decoration: none; padding: 28px; }
   .guide-links h3 { font-size: 22px; line-height: 1.5; margin: 0 0 12px; }
   .guide-links span { display: inline-block; margin-top: 12px; color: #39465e; }
@@ -378,14 +378,6 @@
   .public-related { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .comparison-note { font-size: 14px; padding: 0 12px; }
   .comparison-note strong { font-weight: 500; color: #353d4c; }
-  .art-comparison { margin: 56px 0 40px; }
-  .art-example { margin: 48px 0; }
-  .art-example > h2 { font-size: 24px; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
-  .weights-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 16px; }
-  .weights-table caption { text-align: left; line-height: 1.8; font-size: 14px; color: #697180; margin-bottom: 12px; }
-  .weights-table th, .weights-table td { padding: 14px 12px; border-bottom: 1px solid #e0e3e9; text-align: left; }
-  .weights-table th { font-weight: 500; }
-  .weights-table thead { background: #f7f8fa; }
   .skip-link { position: absolute; top: -100px; left: 16px; z-index: 20; padding: 16px; border-radius: 12px; background: #fff; color: #18191b; }
   .skip-link:focus { top: 12px; }
   @media (max-width: 760px) {
