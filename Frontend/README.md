@@ -27,7 +27,7 @@ npm install
 npm run dev
 ```
 
-로컬은 `/api`를 `http://127.0.0.1:3001`로 프록시합니다. 별도 터미널에서 Backend를 실행해주세요. Vercel 배포에서는 `vercel.json`의 `/api/:path*` 규칙이 Railway 백엔드로 요청을 전달하며, 이 규칙은 첫 화면으로 보내는 SPA 규칙보다 앞에 있어야 합니다. 같은 도메인으로 API를 호출하므로 `VITE_API_URL`을 설정하지 않아도 됩니다. 다른 백엔드로 직접 연결하려면 해당 환경 변수를 설정하고 다시 빌드하며, 백엔드의 CORS에도 프론트엔드 도메인을 허용해야 합니다. 백엔드 주소를 변경할 때는 프록시 목적지도 함께 수정해주세요.
+로컬은 `/api`를 `http://127.0.0.1:3001`로 프록시합니다. 별도 터미널에서 Backend를 실행해주세요. Vercel 배포에서는 `vercel.json`의 `/api/:path*` 규칙이 Railway 백엔드로 요청을 전달하며, 공개 페이지는 정적으로 생성하며, 알 수 없는 주소를 첫 화면으로 보내는 포괄 SPA 규칙은 사용하지 않습니다. 같은 도메인으로 API를 호출하므로 `VITE_API_URL`을 설정하지 않아도 됩니다. 다른 백엔드로 직접 연결하려면 해당 환경 변수를 설정하고 다시 빌드하며, 백엔드의 CORS에도 프론트엔드 도메인을 허용해야 합니다. 백엔드 주소를 변경할 때는 프록시 목적지도 함께 수정해주세요.
 
 Backend에서 `npm run dev`를 실행하면 내부 JSON을 사용하는 API가 시작됩니다. Supabase 키는 필요하지 않습니다. Frontend의 `src/data/webtoons.json`을 갱신했다면 Backend에서 `npm run sync:catalog`로 배포용 JSON을 복사한 뒤 백엔드를 재시작해주세요. 프론트는 계속 검색·추천 API를 호출합니다.
 
@@ -64,3 +64,18 @@ API 클라이언트 테스트와 Backend의 유사도·HTTP 테스트를 사용�
 - `src/lib/recommendationHistory.ts`: 분석 세션의 추천 이력 누적 및 중복 응답 제거
 
 이전 질문 기반 퀴즈 파일은 현재 UI에서 사용하지 않습니다.
+
+
+## SEO와 정적 공개 페이지
+
+`npm run build`는 TypeScript 검사 → Vite 클라이언트 빌드 → 빌드 전용 React 렌더러 → 정적 HTML 생성 → SEO 산출물 검증 순서로 실행합니다. 빌드 시 네트워크·DB·Backend 실행은 필요 없습니다. 홈페이지는 동일한 React 트리를 HTML로 생성하고 `hydrateRoot`로 연결합니다. 작품·장르·가이드 페이지는 JavaScript 없이 읽을 수 있습니다.
+
+- 공개 문서 43개: 홈페이지, 작품 목록, 작품 30개, 장르 7개, 가이드 2개, 소개·추천 기준. 별도 `404.html`은 noindex입니다.
+- `src/seo/content.ts`에서 소개할 작품 ID와 직접 작성한 비교 문구를 관리합니다. 원본 줄거리를 그대로 재게시하지 않습니다. `src/data/webtoons.json`에서 없는 작품·중복 ID·잘못된 공식 URL·필수 근거 누락이 있으면 빌드가 실패합니다.
+- 공개 작품 페이지의 관련 목록은 소규모 소개 목록의 갈래·태그를 비교합니다. Backend의 개인화 유사도와 구분하며 퍼센트·평점·인기 순위로 표시하지 않습니다. `/?seed=작품ID`는 작품을 선택한 첫 화면으로 연결하고 대표 주소는 `/`입니다.
+- `dist/robots.txt`, `dist/sitemap.xml`을 빌드에서 생성합니다. 확인되지 않은 lastmod 날짜를 넣지 않습니다. `VERCEL_ENV=preview` 또는 `SEO_NOINDEX=true`에서는 모든 문서가 noindex이고 사이트맵은 비웁니다.
+- `vercel.json`은 API 프록시와 보안 헤더를 유지하고 API에 `X-Robots-Tag: noindex`를 추가합니다. `cleanUrls`로 `.html` 없는 주소를 사용하며 없는 주소는 플랫폼의 실제 404를 반환합니다. 로컬 Vite 개발 서버의 SPA fallback을 운영 404 검증으로 사용하지 마세요.
+- Paperlogy는 글리프를 제거하지 않은 WOFF2 3종을 로컬 제공하며 `public/fonts/OFL.txt`에 라이선스를 포함합니다. 작은 로고·96px 파비콘·Apple 아이콘과 원래 아이콘의 공유 이미지를 사용합니다.
+- 빌드 검사는 제목·설명 중복, canonical, JSON-LD, 하나의 H1, 깨진 링크·고립 문서, 사이트맵, 프록시 정책을 확인합니다. `npm run test:seo`로 생성물 검사를 다시 실행할 수 있습니다. 미리보기 테스트 후에는 운영 환경으로 다시 빌드하세요.
+
+외부 설정은 별도입니다. 가비아에서 www DNS 및 Vercel 도메인 등록이 되어야 www 리디렉션이 동작합니다. Google Search Console 도메인 소유 확인·네이버 서치어드바이저 등록·사이트맵 제출은 실제 계정의 확인 값으로 진행해야 합니다. 계정 접근·소유 확인·검색 색인·검색 순위·실사용자 CWV 통과를 코드 빌드 성공만으로 완료 처리하지 않습니다. 연락 수단은 프로젝트의 공개 문의 게시판으로 연결했으며 공개 정보만 남기도록 안내합니다.

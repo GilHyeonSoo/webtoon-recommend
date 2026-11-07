@@ -8,10 +8,6 @@
     {
       "source": "/api/:path*",
       "destination": "https://webtoon-api-production-5e28.up.railway.app/api/:path*"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ],
   "headers": [
@@ -43,6 +39,48 @@
           "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://image-comic.pstatic.net https://kr-a.kakaopagecdn.com https://kr-a.kakaocdn.net; font-src 'self'; connect-src 'self' https://webtoon-api-production-5e28.up.railway.app; frame-ancestors 'none'; object-src 'none'; base-uri 'self'"
         }
       ]
+    },
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.webtoonrecommend.site"
+        }
+      ],
+      "destination": "https://webtoonrecommend.site/:path*",
+      "permanent": true
     }
   ]
 }

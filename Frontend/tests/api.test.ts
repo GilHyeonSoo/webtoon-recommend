@@ -85,3 +85,20 @@ test('re-search sends visible recommendation IDs without changing seeds or filte
     await analyzeWebtoons(['seed'], new AbortController().signal, { platform: 'naver', completion: 'ongoing' }, ['old-1', 'old-2'])
   } finally { globalThis.fetch = original }
 })
+
+test('a public work can seed the recommendation form through the validated detail API', async () => {
+  const original = globalThis.fetch
+  const { readFile } = await import('node:fs/promises')
+  const item = JSON.parse(await readFile(new URL('../src/data/webtoons.json', import.meta.url), 'utf8'))[0]
+  const { fetchWebtoon } = await import('../src/api/webtoons.ts')
+  try {
+    globalThis.fetch = async (url, init) => {
+      assert.equal(url, `/api/webtoons/${encodeURIComponent(item.id)}`)
+      assert.ok(init?.signal)
+      return new Response(JSON.stringify({ webtoon: item }))
+    }
+    assert.equal((await fetchWebtoon(item.id, new AbortController().signal)).id, item.id)
+    globalThis.fetch = async () => new Response(JSON.stringify({ webtoon: { ...item, url: 'javascript:alert(1)' } }))
+    await assert.rejects(fetchWebtoon(item.id, new AbortController().signal), /올바른 웹툰 데이터/)
+  } finally { globalThis.fetch = original }
+})
