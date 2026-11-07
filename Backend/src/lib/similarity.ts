@@ -13,6 +13,7 @@ export const normalizeText = (value: string) => value.normalize('NFKC').toLocale
 export const genreLabel = (value: string) => genreNames[value.toLowerCase()] ?? value;
 const genreVocabulary = [...new Set(Object.values(genreNames))];
 
+// Relative weights within the text score; ART_WEIGHT sets the text/art split below.
 const CHANNEL_WEIGHTS = {
   genre: 0.38,
   tag: 0.30,
@@ -20,10 +21,10 @@ const CHANNEL_WEIGHTS = {
   title: 0.10,
   author: 0.05,
 } as const;
-// Art style (image embeddings from the local art engine) is a fixed 20% of the final score whenever
-// both sides have art data: final = 0.8 * text + 0.2 * art. It is not renormalised like the text
+// Art style (image embeddings from the local art engine) is a fixed 25% of the final score whenever
+// both sides have art data: final = 0.75 * text + 0.25 * art. It is not renormalised like the text
 // channels, so works with sparse text metadata are not ranked on art alone.
-const ART_WEIGHT = 0.20;
+const ART_WEIGHT = 0.25;
 
 const genres = (item: WebtoonDto) => [...new Set([
   ...item.genres, ...(item.primaryGenre && item.primaryGenre !== 'unknown' ? [item.primaryGenre] : []),

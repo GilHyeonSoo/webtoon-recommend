@@ -59,7 +59,7 @@ test('art style breaks ties between text-identical candidates and adds a reason'
   assert.ok(!withArt[1].reasons.includes('그림체가 비슷해요'));
 });
 
-test('works without art keep their text-only score; art is capped at a fixed 20% share', () => {
+test('works without art keep their text-only score; art is capped at a fixed 25% share', () => {
   const seed = item('seed', { genres: ['action'], tags: ['성장'] });
   const noArt = item('no-art', { genres: ['action'] });
   const textMatch = item('text-match', { genres: ['action'], tags: ['성장'] });
@@ -69,11 +69,11 @@ test('works without art keep their text-only score; art is capped at a fixed 20%
   const textOnly = new Map(recommendSimilar(catalog, [seed]).map((r) => [r.webtoon.id, r.similarity]));
   const withArt = new Map(recommendSimilar(catalog, [seed], 10, undefined, [], art).map((r) => [r.webtoon.id, r.similarity]));
   assert.equal(withArt.get('no-art'), textOnly.get('no-art'));
-  // Identical art but no shared text: only the 20% art share, not a renormalised majority.
+  // Identical art but no shared text: only the 25% art share, not a renormalised majority.
   assert.equal(textOnly.get('unknown-text'), 0);
-  assert.ok(Math.abs(withArt.get('unknown-text')! - 0.2) < 1e-9);
-  // Unrelated art (score 0) costs a text match at most the 20% share.
-  assert.ok(Math.abs(withArt.get('text-match')! - 0.8 * textOnly.get('text-match')!) < 1e-9);
+  assert.ok(Math.abs(withArt.get('unknown-text')! - 0.25) < 1e-9);
+  // Unrelated art (score 0) costs a text match at most the 25% share.
+  assert.ok(Math.abs(withArt.get('text-match')! - 0.75 * textOnly.get('text-match')!) < 1e-9);
   assert.ok(withArt.get('text-match')! > withArt.get('unknown-text')!);
 });
 
