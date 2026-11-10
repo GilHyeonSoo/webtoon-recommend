@@ -15,16 +15,14 @@ const genreVocabulary = [...new Set(Object.values(genreNames))];
 
 // Relative weights within the text score; ART_WEIGHT sets the text/art split below.
 const CHANNEL_WEIGHTS = {
-  genre: 0.38,
-  tag: 0.30,
-  synopsis: 0.17,
-  title: 0.10,
-  author: 0.05,
+  genre: 0.20,
+  tag: 0.40,
+  synopsis: 0.40,
 } as const;
-// Art style (image embeddings from the local art engine) is a fixed 60% of the final score whenever
-// both sides have art data: final = 0.40 * text + 0.60 * art. Missing text channels redistribute only
-// the 40% text share; missing art data falls back to the full text score.
-const ART_WEIGHT = 0.60;
+// With all channels present: art 50%, genre 10%, tags/taste 20%, synopsis 20%.
+// Missing text channels redistribute only the 50% text share; missing art data falls back to the
+// full text score. Titles and authors are not scoring channels.
+const ART_WEIGHT = 0.50;
 
 const genres = (item: WebtoonDto) => [...new Set([
   ...item.genres, ...(item.primaryGenre && item.primaryGenre !== 'unknown' ? [item.primaryGenre] : []),
@@ -73,30 +71,11 @@ function featureSynopsis(item: WebtoonDto): Vector {
   return result;
 }
 
-function featureTitle(item: WebtoonDto): Vector {
-  const result: Vector = new Map();
-  for (const word of synopsisTokens(item.title)) {
-    result.set(`w:${word}`, Math.min(2.5, (result.get(`w:${word}`) ?? 0) + 1.2));
-  }
-  return result;
-}
-
-function featureAuthor(item: WebtoonDto): Vector {
-  const result: Vector = new Map();
-  for (const author of item.authors) {
-    const key = normalizeText(author);
-    if (key) result.set(`a:${key}`, 3);
-  }
-  return result;
-}
-
 function channelFeatures(item: WebtoonDto): ChannelVectors {
   return {
     genre: featureGenre(item),
     tag: featureTag(item),
     synopsis: featureSynopsis(item),
-    title: featureTitle(item),
-    author: featureAuthor(item),
   };
 }
 
@@ -157,7 +136,7 @@ export function createRecommendationIndex(catalog: WebtoonDto[], art?: ArtStyleI
     const weighted = applyIdf(channelRaw, catalog.length);
     catalog.forEach((item, i) => {
       const existing = vectors.get(item.id) ?? {
-        genre: new Map(), tag: new Map(), synopsis: new Map(), title: new Map(), author: new Map(),
+        genre: new Map(), tag: new Map(), synopsis: new Map(),
       };
       existing[channel] = weighted[i];
       vectors.set(item.id, existing);

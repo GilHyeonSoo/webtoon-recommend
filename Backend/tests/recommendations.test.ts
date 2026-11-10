@@ -29,6 +29,19 @@ test('unknown metadata never produces artificial similarity', () => {
   assert.ok(results.every((r) => r.similarity === 0));
 });
 
+test('matching titles and authors contribute no score and renaming them does not affect similarity', () => {
+  const seed = item('seed', { title: '같은 제목', authors: ['같은 작가'], genres: ['action'], tags: ['alpha'], synopsis: 'aaaa' });
+  const matchingNames = item('names-only', { title: seed.title, authors: seed.authors });
+  const related = item('related', { title: seed.title, authors: seed.authors, genres: ['action'], tags: ['alpha'], synopsis: 'aaaa' });
+  const catalog = [seed, matchingNames, related];
+  const scores = new Map(recommendSimilar(catalog, [seed]).map((r) => [r.webtoon.id, r.similarity]));
+  assert.equal(scores.get('names-only'), 0);
+  assert.ok(Math.abs(scores.get('related')! - 1) < 1e-9);
+  const renamed = catalog.map((entry, index) => ({ ...entry, title: `변경된 제목 ${index}`, authors: [`다른 작가 ${index}`] }));
+  const renamedScores = new Map(recommendSimilar(renamed, [renamed[0]]).map((r) => [r.webtoon.id, r.similarity]));
+  assert.deepEqual(renamedScores, scores);
+});
+
 test('Korean synopsis stems and tag normalization give real evidence', () => {
   const seed = item('seed', { synopsis: '주인공은 복수를 결심하고 성장한다', tags: ['#학원/액션'] });
   const good = item('good', { synopsis: '주인공의 복수와 성장', tags: ['학원액션'] });
