@@ -33,7 +33,7 @@ function FilterGroup<T extends string>({ title, value, options, onChange }: {
 }
 
 function Metadata({ item, compact = false }: { item: Webtoon; compact?: boolean }) {
-  return <p className="work-meta">{providerLabels[item.provider]} · {item.isEnd ? '완결' : item.isOnHiatus ? '휴재' : '연재 중'}{!compact && item.totalEpisodeCount !== null && item.totalEpisodeCount !== undefined ? ` · ${item.totalEpisodeCount}화` : ''}{!compact && item.averageRating !== null && item.averageRating !== undefined ? ` · 평점 ${item.averageRating}` : ''}</p>
+  return <p className="work-meta">{providerLabels[item.provider]} · {item.isEnd ? '완결' : item.isOnHiatus ? '휴재' : '연재 중'}{!compact && item.averageRating !== null && item.averageRating !== undefined ? ` · 평점 ${item.averageRating}` : ''}</p>
 }
 
 export function Recommendations({ analysis, onEdit }: { analysis: Analysis; onEdit: () => void }) {
