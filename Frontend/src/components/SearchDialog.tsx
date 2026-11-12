@@ -4,7 +4,7 @@ import { providerLabels, searchWebtoons } from '../api/webtoons'
 import type { Webtoon } from '../api/webtoons'
 import { Cover } from './Cover'
 
-export function SearchDialog({ selected, onSelect, onClose }: { selected: Webtoon[]; onSelect: (item: Webtoon) => void; onClose: () => void }) {
+export function SearchDialog({ inline = false, selected, onSelect, onClose }: { inline?: boolean; selected: Webtoon[]; onSelect: (item: Webtoon) => void; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
@@ -14,7 +14,10 @@ export function SearchDialog({ selected, onSelect, onClose }: { selected: Webtoo
   const [active, setActive] = useState(-1)
   const [attempt, setAttempt] = useState(0)
   const selectedIds = new Set(selected.map((item) => item.id))
-  useEffect(() => { dialog.current?.showModal(); input.current?.focus(); }, [])
+  useEffect(() => {
+    if (!inline) dialog.current?.showModal()
+    input.current?.focus({ preventScroll: true })
+  }, [inline])
   useEffect(() => {
     const controller = new AbortController()
     const timeout = setTimeout(async () => {
@@ -40,8 +43,9 @@ export function SearchDialog({ selected, onSelect, onClose }: { selected: Webtoo
       event.preventDefault(); onSelect(items[active])
     }
   }
-  return <dialog ref={dialog} className="search-dialog glass-panel" aria-labelledby="search-title" onCancel={(event) => { event.preventDefault(); onClose() }} onClick={(event) => { if (event.target === event.currentTarget) { const box = event.currentTarget.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) onClose() } }}>
-    <div className="search-heading"><div><p className="eyebrow">한 작품씩, 당신의 취향</p><h2 id="search-title">어떤 웹툰을 즐겨보세요?</h2></div><button className="icon-button" onClick={onClose} aria-label="검색창 닫기">×</button></div>
+  const content = <>
+    {inline && <button type="button" className="text-button search-back" onClick={onClose}>← 웹툰 선택으로 돌아가기</button>}
+    <div className="search-heading"><div><p className="eyebrow">한 작품씩, 당신의 취향</p><h2 id="search-title">어떤 웹툰을 즐겨보세요?</h2></div>{!inline && <button className="icon-button" onClick={onClose} aria-label="검색창 닫기">×</button>}</div>
     <div className="search-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
       <input ref={input} value={query} maxLength={100} aria-label="웹툰 제목 검색" placeholder="웹툰 제목을 입력해주세요" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="search-results" aria-activedescendant={active >= 0 ? `search-option-${active}` : undefined} onKeyDown={keydown} onChange={(event) => { setQuery(event.target.value); setItems([]); setActive(-1); setLoading(true); setError('') }} />
       {query && <button className="clear-search" aria-label="검색어 지우기" onClick={() => { setQuery(''); setItems([]); setActive(-1); setLoading(true); setError(''); input.current?.focus() }}>×</button>}
@@ -58,5 +62,7 @@ export function SearchDialog({ selected, onSelect, onClose }: { selected: Webtoo
       </ul>
     </div>
     <p className="search-footer">최대 3개의 작품으로 취향을 찾아드릴게요.</p>
-  </dialog>
+  </>
+  if (inline) return <section className="search-page" aria-labelledby="search-title" onKeyDown={(event) => { if (event.key === 'Escape') onClose() }}>{content}</section>
+  return <dialog ref={dialog} className="search-dialog glass-panel" aria-labelledby="search-title" onCancel={(event) => { event.preventDefault(); onClose() }} onClick={(event) => { if (event.target === event.currentTarget) { const box = event.currentTarget.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) onClose() } }}>{content}</dialog>
 }

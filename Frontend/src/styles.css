@@ -15,6 +15,7 @@
 }
 @layer experience {
   .app-shell { min-height: 100svh; background: #fff; }
+  .mobile-scroll-controls { display: none; }
   .site-header { height: 88px; padding: 0 clamp(24px, 5vw, 80px); display: flex; justify-content: center; align-items: center; }
   .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 36px; font-weight: 700; letter-spacing: -.04em; }
   .brand-mark { display: block; width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
@@ -241,6 +242,10 @@
     .selected-details { grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
   }
   @media (max-width: 680px) {
+    .app-shell { padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
+    .mobile-scroll-controls { display: grid; gap: 8px; position: fixed; z-index: 10; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+    .mobile-scroll-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #dce0e8; border-radius: 14px; background: #fff; color: #39465e; box-shadow: 0 4px 18px #282e4c1a; font-size: 24px; line-height: 1; }
+    .mobile-scroll-controls button:active { background: #edf0f6; }
     .site-header { height: 72px; padding-inline: 24px; }
     .brand { font-size: 30px; }
     .selection-content { min-height: calc(100svh - 72px); padding-top: 52px; }
@@ -259,6 +264,9 @@
     .search-dialog { padding: 22px 18px; max-height: calc(100svh - 32px); }
     .search-heading h2 { font-size: 23px; }
     .search-scroll { max-height: min(340px, 48svh); }
+    .search-page { min-height: calc(100svh - 72px); padding: 16px 20px 32px; }
+    .search-back { min-height: 44px; margin-bottom: 20px; }
+    .search-page .search-scroll { max-height: none; overflow: visible; }
     .search-option { gap: 10px; padding-inline: 6px; }
     .search-option strong { font-size: 14px; }
     .search-field input { font-size: 16px; }
@@ -270,12 +278,14 @@
     .section-heading h2 { font-size: 21px; }
     .selected-detail { padding: 18px; grid-template-columns: 72px 1fr; }
     .selected-detail .cover-art { height: 106px; }
+    .results-sidebar .selected-section { display: none; }
+    .results-sidebar .recommendation-filters { margin-bottom: 0; }
     .ranked-section { margin-top: 44px; }
-    .recommendation-card { grid-template-columns: 64px minmax(0, 1fr) 68px; gap: 16px; padding: 20px; border-radius: 18px; }
-    .rank-number { grid-column: 2; grid-row: 1; font-size: 20px; }
-    .recommendation-cover { grid-column: 1; grid-row: 1; height: 96px; border-radius: 8px; }
+    .recommendation-card { grid-template-columns: 128px minmax(0, 1fr); gap: 16px; padding: 20px; border-radius: 18px; }
+    .rank-number { grid-column: 2; grid-row: 1; align-self: start; justify-self: end; font-size: 20px; }
+    .recommendation-cover { grid-column: 1; grid-row: 1; height: 192px; border-radius: 12px; }
     .recommendation-copy { grid-column: 1 / -1; grid-row: 2; }
-    .recommendation-score { grid-column: 3; grid-row: 1; gap: 6px; }
+    .recommendation-score { grid-column: 2; grid-row: 1; align-self: end; justify-self: end; gap: 6px; }
     .similarity-ring { width: 68px; }
     .similarity-ring-label strong { font-size: 20px; }
     .similarity-ring-label > span { font-size: 10px; }
