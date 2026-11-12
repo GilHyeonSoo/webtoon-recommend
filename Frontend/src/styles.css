@@ -285,7 +285,7 @@
     .rank-number { grid-column: 2; grid-row: 1; align-self: start; justify-self: end; font-size: 20px; }
     .recommendation-cover { grid-column: 1; grid-row: 1; height: 192px; border-radius: 12px; }
     .recommendation-copy { grid-column: 1 / -1; grid-row: 2; }
-    .recommendation-score { grid-column: 2; grid-row: 1; align-self: end; justify-self: end; gap: 6px; }
+    .recommendation-score { grid-column: 2; grid-row: 1; align-self: center; justify-self: center; gap: 6px; }
     .similarity-ring { width: 68px; }
     .similarity-ring-label strong { font-size: 20px; }
     .similarity-ring-label > span { font-size: 10px; }
