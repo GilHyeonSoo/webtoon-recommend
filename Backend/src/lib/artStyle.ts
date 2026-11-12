@@ -8,7 +8,7 @@ export type ArtStyleIndex = {
   dimensions: number;
   /** Median cosine of random pairs: maps to art score 0. */
   baseline: number;
-  /** Cosine above which two works are labelled as having a similar art style. */
+  /** Global cosine threshold for a similar-art reason; per-work neighbours can also qualify. */
   similarThreshold: number;
   vectors: Map<string, Float32Array>;
 };
@@ -81,9 +81,36 @@ export const artScore = (art: ArtStyleIndex, cosine: number) =>
 
 export type ArtMatch = { score: number; similar: boolean };
 
+// Each selected work has its own similarity distribution. Cache its top-1% cutoff so an unusual
+// style can still have close neighbours even when none clear the global random-pair threshold.
+const reasonThresholds = new WeakMap<ArtStyleIndex, WeakMap<Float32Array, number>>();
+
+function reasonThreshold(art: ArtStyleIndex, seed: Float32Array): number {
+  let cache = reasonThresholds.get(art);
+  if (!cache) { cache = new WeakMap(); reasonThresholds.set(art, cache); }
+  const cached = cache.get(seed);
+  if (cached !== undefined) return cached;
+  const similarities: number[] = [];
+  for (const candidate of art.vectors.values()) {
+    if (candidate !== seed) similarities.push(dot(seed, candidate));
+  }
+  let threshold = art.similarThreshold;
+  // At least 100 neighbours are needed to estimate a top-1% cutoff. Small exports retain the
+  // global criterion. A relative match must also be above the global random-pair baseline.
+  if (similarities.length >= 100) {
+    similarities.sort((a, b) => b - a);
+    const cutoff = similarities[Math.ceil(similarities.length * 0.01) - 1];
+    threshold = Math.min(threshold, Math.max(art.baseline, cutoff));
+  }
+  cache.set(seed, threshold);
+  return threshold;
+}
+
 /**
  * Scores a candidate against each selected work separately and averages, so every pick counts
  * equally (averaging vectors first would blur distinct styles into a generic one).
+ * The reason qualifies at the global threshold or in a selected work's top 1% of neighbours,
+ * above the random-pair baseline. This display criterion does not change the score.
  * Returns undefined when the candidate or none of the seeds has art data.
  */
 export function matchArt(art: ArtStyleIndex, seeds: readonly Float32Array[], candidateId: string): ArtMatch | undefined {
@@ -94,7 +121,7 @@ export function matchArt(art: ArtStyleIndex, seeds: readonly Float32Array[], can
   for (const seed of seeds) {
     const cosine = dot(seed, candidate);
     total += artScore(art, cosine);
-    if (cosine >= art.similarThreshold) similar = true;
+    if (cosine > art.baseline && cosine >= reasonThreshold(art, seed)) similar = true;
   }
   return { score: total / seeds.length, similar };
 }

@@ -42,6 +42,39 @@ test('art score is calibrated to [0, 1] and averages each selected work equally'
   assert.equal(matchArt(art, [], 'c'), undefined);
 });
 
+test('per-work top 1% can show an art reason below the global threshold without changing scores', () => {
+  const art = parseArtStyle(exported({
+    seed: angle(0), first: angle(40), second: angle(42), outside: angle(44),
+    ...Object.fromEntries(Array.from({ length: 196 }, (_, i) => [`background-${i}`, angle(80)])),
+  }, { baseline: 0.2, similarThreshold: 0.9 }));
+  const seed = art.vectors.get('seed')!;
+  const first = matchArt(art, [seed], 'first')!;
+  const second = matchArt(art, [seed], 'second')!;
+  assert.equal(first.similar, true);
+  assert.equal(second.similar, true);
+  assert.equal(matchArt(art, [seed], 'outside')!.similar, false);
+  assert.ok(Math.abs(first.score - artScore(art, Math.cos(40 * Math.PI / 180))) < 1e-6);
+  assert.deepEqual(matchArt(art, [seed], 'first'), first, 'cached cutoff must give the same result');
+
+  const selected = item('seed', { genres: ['action'] });
+  const catalog = [selected, item('first', { genres: ['action'] }), item('outside', { genres: ['action'] })];
+  for (const preferences of [undefined, { platform: 'naver', completion: 'ongoing' } as const]) {
+    const results = recommendSimilar(catalog, [selected], 10, preferences, [], art);
+    assert.ok(results.find((r) => r.webtoon.id === 'first')!.reasons.includes('그림체가 비슷해요'));
+    assert.ok(!results.find((r) => r.webtoon.id === 'outside')!.reasons.includes('그림체가 비슷해요'));
+  }
+});
+
+test('relative art reasons exclude weak matches and small exports keep the global criterion', () => {
+  const art = parseArtStyle(exported({
+    seed: [1, 0], weak: [0, 1],
+    ...Object.fromEntries(Array.from({ length: 100 }, (_, i) => [`background-${i}`, [0, 1]])),
+  }));
+  assert.deepEqual(matchArt(art, [art.vectors.get('seed')!], 'weak'), { score: 0, similar: false });
+  const small = parseArtStyle(exported({ seed: angle(0), closest: angle(40) }));
+  assert.equal(matchArt(small, [small.vectors.get('seed')!], 'closest')!.similar, false);
+});
+
 test('art style breaks ties and shows a matching reason even with both preference filters', () => {
   const seed = item('seed', { genres: ['action'] });
   const sameStyle = item('same-style', { genres: ['action'] });
@@ -110,6 +143,9 @@ test('bundled art-style export loads and covers every bundled catalog work', asy
   const missing = catalog.filter((entry) => !art.vectors.has(entry.id)).map((entry) => entry.id);
   assert.deepEqual(missing.slice(0, 5), []);
   assert.ok(art.baseline < art.similarThreshold);
+  const soloLeveling = art.vectors.get('kakao_2320')!;
+  assert.equal(matchArt(art, [soloLeveling], 'kakao_4801')!.similar, true,
+    'Solo Leveling should recognise its close art neighbour below the global threshold');
 });
 
 test('missing art-style file falls back to text-only recommendations', () => {
